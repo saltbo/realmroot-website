@@ -7,232 +7,352 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const isChinese = locale === 'zh-CN';
+const zh = locale === 'zh-CN';
 const posts = (await getCollection('blog'))
   .filter((post) => post.data.language === locale)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
   .slice(0, 3);
 
-const t = isChinese
+const t = zh
   ? {
-      eyebrow: '面向产品的身份基础设施',
-      headline: '一个 Realm，承载每一种行动者。',
-      lead: '为用户、应用、API 与受委托 Agent 运行一个独立的身份根。统一认证、授权与显式委托，保持清晰的安全边界。',
-      primary: '部署你的 Realm',
-      secondary: '阅读架构文档',
-      note: '开源 · 自托管 · 基于标准协议',
-      trust: [
-        ['边界', '一个部署，一个 Issuer'],
-        ['集成', 'OIDC + OAuth 2.0'],
-        ['运行时', 'Cloudflare Workers'],
-        ['授权', '显式委托'],
+      eyebrow: '开源身份与委托授权基础设施',
+      title: '每个产品自己的身份根。',
+      lead: '用一个 Realm 服务用户、应用、API 与受委托 Agent。一个部署，一个用户池，一个 Issuer，一套明确的安全策略边界。',
+      primary: '部署 Realmroot',
+      secondary: '阅读快速开始',
+      foundation: ['一个部署', '一个用户池', '一个 Issuer', '一个策略边界'],
+      console: {
+        context: '管理控制台',
+        realm: '默认 Realm',
+        nav: ['概览', '应用', '登录和账户', '多因素认证', '连接器', '安全', 'API 资源', '角色', '组织', '用户管理', 'Delegated Agents'],
+        groupA: '认证',
+        groupB: '授权与治理',
+        title: '应用',
+        description: '管理 OIDC Client、Redirect URI、Grant Type 与 Client 安全配置。',
+        action: '新建应用',
+        rows: [
+          ['Web application', 'Confidential', 'Enabled'],
+          ['Native application', 'Public + PKCE', 'Enabled'],
+          ['Operations console', 'Confidential', 'Enabled'],
+        ],
+      },
+      introKicker: '从登录到委托权限',
+      introTitle: '不是一个登录组件，而是产品的身份控制平面。',
+      introBody: 'Realmroot 将产品团队通常需要重复搭建的 Hosted Auth、账户管理、OIDC、管理后台、资源授权与审计集中在一个可独立部署的服务中。',
+      surfaces: [
+        {
+          label: '01 · Hosted experience',
+          title: '完整的用户身份体验。',
+          body: '直接获得登录、注册、密码恢复、OAuth 同意，以及管理资料、凭据、MFA、Passkey、Session 和关联账户的 Account Center。',
+        },
+        {
+          label: '02 · Control plane',
+          title: '一个 Console 管理整个 Realm。',
+          body: '管理员在同一个控制面配置 Application、用户、Connector、安全策略、Organization、Role、API Resource、Webhook 与品牌体验。',
+        },
+        {
+          label: '03 · Standard integration',
+          title: '应用通过 OIDC 接入。',
+          body: '浏览器和原生应用使用带 PKCE 的 Authorization Code；服务端 Confidential Client 使用注册的凭据。管理 API 与登录协议保持清晰边界。',
+        },
       ],
-      sectionEyebrow: '一个控制平面',
-      sectionTitle: '身份不是外围插件，而是产品的信任根。',
-      sectionLead: 'Realmroot 把重复的用户表、登录页、OAuth 客户端、策略与 Agent 授权整合为一个可部署的身份服务。',
-      cards: [
-        ['托管认证', '让每个产品应用通过标准 OIDC 接入同一个用户池，直接获得登录、注册、恢复与 OAuth 同意流程。', 'AUTH'],
-        ['账户中心', '用户在统一入口管理资料、凭据、MFA、Passkey、会话、关联账户与授权应用。', 'USER'],
-        ['管理 Console', '团队从一个控制面配置应用、用户、Connector、安全策略、角色、API 资源与品牌。', 'OPS'],
-        ['资源 API', '所有管理能力都有清晰的资源接口与 OpenAPI 契约，适合自动化，也适合 Agent 操作。', 'API'],
+      hosted: {
+        label: '托管登录',
+        title: '登录你的账户',
+        user: '邮箱或用户名',
+        password: '密码',
+        button: '登录',
+        alternatives: ['使用邮箱继续', '使用通行密钥继续'],
+      },
+      account: {
+        label: '账户中心',
+        title: '你的账户',
+        items: ['个人资料', '安全', '连接', '已授权应用'],
+        detail: '用户在产品之外管理自己的身份与授权关系。',
+      },
+      agentKicker: 'Agent identity',
+      agentTitle: 'Agent 拥有稳定身份，而不是一把无限权限的 API Key。',
+      agentBody: 'Realmroot 将持久 Agent identity 与当前承载它的主机凭据分离。Enrollment 只建立身份；业务 API 权限始终来自控制者对精确 Resource 与 Scope 的批准。',
+      flow: [
+        ['Agent identity', '稳定的 Issuer 与 Subject'],
+        ['Controller decision', '批准精确的 Resource 与 Scope'],
+        ['Access grant', '一次性、限时或持久'],
+        ['Protected API', '短期、Audience 限定、DPoP 绑定'],
       ],
-      architectureEyebrow: '真实的安全边界',
-      architectureTitle: '从产品到 Issuer，再到受保护资源。',
-      architectureLead: '每个 Realmroot 部署拥有自己的用户池、Issuer、策略、数据库与密钥。需要隔离时，部署新的 Realm，而不是在共享表上追加例外。',
-      nodes: [
-        ['People · Apps · Agents', '行动者', '用户登录，应用发起 OIDC 流程，Agent 请求明确的资源权限。'],
-        ['Realmroot', '身份与授权根', '一个用户池、一个 Issuer、一个 Console，以及统一的策略边界。'],
-        ['APIs · Products', '受保护资源', '应用验证标准令牌；Agent 使用短期、受众受限且 DPoP 绑定的访问令牌。'],
+      agentNotes: ['Enrollment 不自动授予业务权限', '更换 Resource、Account 或扩大 Scope 必须重新批准', 'Agent 直接调用受保护 API；Realmroot 不是 HTTP Proxy'],
+      architectureKicker: '部署就是 Realm 边界',
+      architectureTitle: '需要隔离时，部署新的 Realm。',
+      architectureBody: 'Application 与 Organization 是 Realm 内的产品资源，不是用户池隔离边界。需要独立用户、管理员、Issuer、策略、事件响应或数据生命周期的产品，应使用独立部署。',
+      archCards: [
+        ['产品应用', '通过 OIDC 共享有意共享的用户账户。'],
+        ['Realmroot 部署', '拥有用户池、Issuer、Console、策略、D1、R2 与 Secret。'],
+        ['产品 API', '验证 Realmroot 令牌或接入外部 OAuth Authorization Server。'],
       ],
-      agentEyebrow: '为 Agent 设计，而不是后补',
-      agentTitle: '稳定身份。受控主机。最小权限。',
-      agentLead: 'Realmroot 将持久 Agent 身份与当前承载它的主机和密钥分离。每次资源访问都需要控制者批准，并绑定精确的资源、账户与 scope。',
-      points: ['Enrollment 只建立身份，不自动授予权限', '权限扩张与资源变化必须重新批准', 'Agent 直接访问 API，Realmroot 不充当代理'],
-      statement: 'Your product’s identity root.',
-      statementLead: '为产品运行一个 Realm，让用户、应用、API 与 Agent 在同一套显式权威模型中协作。',
-      blogTitle: '来自 Realmroot',
+      standards: ['OpenID Connect', 'OAuth 2.0', 'PKCE', 'Token Exchange', 'DPoP', 'OpenAPI'],
+      finalTitle: '为你的产品运行一个 Realm。',
+      finalBody: '把身份、管理与显式委托放在一个清晰的信任边界内。',
+      blogTitle: '关于身份与权限',
       allPosts: '查看全部文章',
       read: '阅读',
     }
   : {
-      eyebrow: 'Identity infrastructure for products',
-      headline: 'One realm. Every actor. Explicit authority.',
-      lead: 'Run an identity root for users, applications, APIs, and delegated agents—with authentication, authorization, and delegation inside one clear boundary.',
-      primary: 'Deploy your realm',
-      secondary: 'Read the architecture',
-      note: 'Open source · Self-hosted · Standards-based',
-      trust: [
-        ['Boundary', 'One deployment, one issuer'],
-        ['Integration', 'OIDC + OAuth 2.0'],
-        ['Runtime', 'Cloudflare Workers'],
-        ['Authority', 'Explicit delegation'],
+      eyebrow: 'Open-source identity and delegated-access infrastructure',
+      title: 'Your product’s identity root.',
+      lead: 'Run one realm for users, applications, APIs, and delegated agents. One deployment, one user pool, one issuer, and one explicit security-policy boundary.',
+      primary: 'Deploy Realmroot',
+      secondary: 'Read the quick start',
+      foundation: ['One deployment', 'One user pool', 'One issuer', 'One policy boundary'],
+      console: {
+        context: 'Admin Console',
+        realm: 'Default realm',
+        nav: ['Dashboard', 'Applications', 'Sign-in & account', 'Multi-factor auth', 'Connectors', 'Security', 'API resources', 'Roles', 'Organizations', 'User management', 'Delegated agents'],
+        groupA: 'Authentication',
+        groupB: 'Authorization & governance',
+        title: 'Applications',
+        description: 'Manage OIDC clients, redirect URIs, grant types, and client security posture.',
+        action: 'New application',
+        rows: [
+          ['Web application', 'Confidential', 'Enabled'],
+          ['Native application', 'Public + PKCE', 'Enabled'],
+          ['Operations console', 'Confidential', 'Enabled'],
+        ],
+      },
+      introKicker: 'From sign-in to delegated authority',
+      introTitle: 'Not a login component. Your product’s identity control plane.',
+      introBody: 'Realmroot packages hosted auth, account management, OIDC, administration, resource authorization, and audit into one independently deployable service.',
+      surfaces: [
+        {
+          label: '01 · Hosted experience',
+          title: 'A complete user identity experience.',
+          body: 'Ship sign-in, sign-up, recovery, OAuth consent, and an Account Center for profiles, credentials, MFA, passkeys, sessions, and linked accounts.',
+        },
+        {
+          label: '02 · Control plane',
+          title: 'Operate the whole realm from one Console.',
+          body: 'Manage applications, users, connectors, security policy, organizations, roles, API resources, webhooks, and product branding in one place.',
+        },
+        {
+          label: '03 · Standard integration',
+          title: 'Applications connect through OIDC.',
+          body: 'Browser and native clients use authorization code with PKCE. Confidential server clients use registered credentials. Login protocol and management API stay separate.',
+        },
       ],
-      sectionEyebrow: 'One control plane',
-      sectionTitle: 'Identity is your trust root, not a login plugin.',
-      sectionLead: 'Realmroot packages the user tables, hosted flows, OAuth clients, policy, and agent authority every product would otherwise rebuild.',
-      cards: [
-        ['Hosted auth', 'Connect product applications to one user pool through standard OIDC, with sign-in, sign-up, recovery, and OAuth consent included.', 'AUTH'],
-        ['Account center', 'Give people one place to manage profiles, credentials, MFA, passkeys, sessions, linked accounts, and authorized apps.', 'USER'],
-        ['Admin console', 'Operate applications, users, connectors, policy, roles, API resources, branding, and deployment readiness from one surface.', 'OPS'],
-        ['Resource API', 'Every management capability has a resource-oriented interface and OpenAPI contract—built for automation and agents.', 'API'],
+      hosted: {
+        label: 'Hosted sign-in',
+        title: 'Sign in to your account',
+        user: 'Email or username',
+        password: 'Password',
+        button: 'Sign in',
+        alternatives: ['Continue with email', 'Continue with passkey'],
+      },
+      account: {
+        label: 'Account Center',
+        title: 'Your account',
+        items: ['Profile', 'Security', 'Connections', 'Authorized apps'],
+        detail: 'People manage identity and consent outside your product application.',
+      },
+      agentKicker: 'Agent identity',
+      agentTitle: 'An agent gets a stable identity—not an all-powerful API key.',
+      agentBody: 'Realmroot separates durable agent identity from the host credential that currently presents it. Enrollment establishes identity; business API authority always comes from controller approval for an exact resource and scope set.',
+      flow: [
+        ['Agent identity', 'Stable issuer and subject'],
+        ['Controller decision', 'Exact resource and scopes'],
+        ['Access grant', 'One-time, limited, or persistent'],
+        ['Protected API', 'Short-lived, audience-bound, DPoP-bound'],
       ],
-      architectureEyebrow: 'A real security boundary',
-      architectureTitle: 'From product actor to issuer to protected resource.',
-      architectureLead: 'Each Realmroot deployment owns its user pool, issuer, policy, database, and keys. When you need isolation, deploy another realm instead of adding exceptions to shared tables.',
-      nodes: [
-        ['People · Apps · Agents', 'Actors', 'People sign in, apps start OIDC flows, and agents ask for explicit resource authority.'],
-        ['Realmroot', 'Identity root', 'One user pool, one issuer, one console, and one shared security-policy boundary.'],
-        ['APIs · Products', 'Protected resources', 'Apps validate standard tokens. Agents use short-lived, audience-bound, DPoP-bound access.'],
+      agentNotes: ['Enrollment grants no business authority', 'Resource, account, or scope changes require a new decision', 'Agents call protected APIs directly; Realmroot is not an HTTP proxy'],
+      architectureKicker: 'The deployment is the realm boundary',
+      architectureTitle: 'When you need isolation, deploy another realm.',
+      architectureBody: 'Applications and organizations are product resources inside a realm, not user-pool isolation boundaries. Products needing separate users, administrators, issuers, policy, incident response, or data lifecycle use separate deployments.',
+      archCards: [
+        ['Product applications', 'Share accounts intentionally through standard OIDC.'],
+        ['Realmroot deployment', 'Owns the user pool, issuer, Console, policy, D1, R2, and secrets.'],
+        ['Product APIs', 'Validate Realmroot tokens or integrate an external OAuth authorization server.'],
       ],
-      agentEyebrow: 'Agent-native, not bolted on',
-      agentTitle: 'Stable identity. Controlled hosts. Least authority.',
-      agentLead: 'Realmroot separates a durable agent identity from the host and key that currently presents it. Resource access requires controller approval and binds an exact resource, account, and scope set.',
-      points: ['Enrollment establishes identity, never automatic authority', 'Scope expansion or resource changes require a new decision', 'Agents call protected APIs directly; Realmroot is not a proxy'],
-      statement: 'Your product’s identity root.',
-      statementLead: 'Run one realm so people, applications, APIs, and agents can work inside the same explicit model of authority.',
-      blogTitle: 'From Realmroot',
+      standards: ['OpenID Connect', 'OAuth 2.0', 'PKCE', 'Token Exchange', 'DPoP', 'OpenAPI'],
+      finalTitle: 'Run a realm for your product.',
+      finalBody: 'Put identity, administration, and explicit delegation inside one clear trust boundary.',
+      blogTitle: 'On identity and authority',
       allPosts: 'View all writing',
       read: 'Read',
     };
-
 ---
 
-<section class="section-shell hero">
-  <div>
+<section class="hero section-shell">
+  <div class="hero-copy">
     <p class="eyebrow">{t.eyebrow}</p>
-    <h1 set:html={t.headline.replace('Every actor', '<em>Every actor</em>').replace('每一种行动者', '<em>每一种行动者</em>')} />
+    <h1>{t.title}</h1>
     <p class="hero-lead">{t.lead}</p>
     <div class="hero-actions">
-      <a class="button button-lime" href="https://github.com/realmroot/realmroot#deploy">{t.primary}</a>
-      <a class="button button-ghost" href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.secondary}</a>
+      <a class="button button-primary" href="https://github.com/realmroot/realmroot#deploy">{t.primary}</a>
+      <a class="button button-secondary" href={zh ? '/zh-cn/docs/getting-started/quick-start/' : '/docs/getting-started/quick-start/'}>{t.secondary}</a>
     </div>
-    <p class="hero-note"><span></span>{t.note}</p>
+    <div class="realm-facts" aria-label="Realmroot deployment model">
+      {t.foundation.map((item) => <span>{item}</span>)}
+    </div>
   </div>
-  <div class="realm-visual" aria-label="One identity realm connecting people, applications, APIs, and agents">
-    <div class="actor actor-human">People</div>
-    <div class="actor actor-app">Apps</div>
-    <div class="actor actor-api">APIs</div>
-    <div class="actor actor-agent">Agents</div>
-    <div class="realm-center">Identity<br />root</div>
-  </div>
-</section>
 
-<section class="trust-strip" aria-label="Platform foundation">
-  <div class="section-shell trust-inner">
-    <div class="trust-item">
-      <span>Realmroot</span>
-      <strong>Identity + delegated access</strong>
-    </div>
-    {t.trust.map(([label, value]) => (
-      <div class="trust-item">
-        <span>{label}</span>
-        <strong>{value}</strong>
+  <div class="console-window" aria-label="Realmroot application management console preview">
+    <div class="console-topbar">
+      <div class="console-brand">
+        <span class="brand-tile">R</span>
+        <strong>Realmroot</strong>
+        <i></i>
+        <span>{t.console.context}</span>
       </div>
-    ))}
+      <span class="realm-switcher">{t.console.realm}</span>
+    </div>
+    <div class="console-body">
+      <aside class="console-nav">
+        <span class="console-nav-label">{t.console.groupA}</span>
+        {t.console.nav.slice(0, 6).map((item, index) => (
+          <span class:list={['console-nav-item', index === 1 && 'active']}><b aria-hidden="true"></b>{item}</span>
+        ))}
+        <span class="console-nav-label">{t.console.groupB}</span>
+        {t.console.nav.slice(6).map((item) => (
+          <span class="console-nav-item"><b aria-hidden="true"></b>{item}</span>
+        ))}
+      </aside>
+      <div class="console-content">
+        <div class="console-page-head">
+          <div>
+            <h2>{t.console.title}</h2>
+            <p>{t.console.description}</p>
+          </div>
+          <span class="console-button">＋ {t.console.action}</span>
+        </div>
+        <div class="console-tabs">
+          <span class="active">{zh ? '我的应用' : 'My apps'}</span>
+          <span>{zh ? '第三方应用' : 'Third-party apps'}</span>
+        </div>
+        <div class="console-table">
+          <div class="console-table-head">
+            <span>{zh ? '应用' : 'Application'}</span>
+            <span>{zh ? 'Client 类型' : 'Client type'}</span>
+            <span>{zh ? '状态' : 'Status'}</span>
+          </div>
+          {t.console.rows.map(([name, type, status], index) => (
+            <div class="console-table-row">
+              <span class="app-cell"><i>{index === 0 ? 'W' : index === 1 ? 'N' : 'O'}</i><strong>{name}</strong></span>
+              <span>{type}</span>
+              <span class="status-dot">{status}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section" id="product">
+<section class="product-intro section" id="product">
   <div class="section-shell">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">{t.sectionEyebrow}</p>
-        <h2>{t.sectionTitle}</h2>
-      </div>
-      <p>{t.sectionLead}</p>
+    <div class="section-heading centered-heading">
+      <p class="eyebrow">{t.introKicker}</p>
+      <h2>{t.introTitle}</h2>
+      <p>{t.introBody}</p>
     </div>
-    <div class="capability-grid">
-      {t.cards.map(([title, description, glyph], index) => (
-        <article class:list={['capability-card', index === 1 && 'dark', index === 2 && 'lime']}>
-          <span class="card-number">0{index + 1}</span>
-          <span class="card-glyph">{glyph}</span>
-          <h3>{title}</h3>
-          <p>{description}</p>
+    <div class="surface-grid">
+      {t.surfaces.map((surface) => (
+        <article class="surface-card">
+          <span>{surface.label}</span>
+          <h3>{surface.title}</h3>
+          <p>{surface.body}</p>
         </article>
       ))}
     </div>
   </div>
 </section>
 
-<section class="section architecture" id="architecture">
-  <div class="section-shell">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">{t.architectureEyebrow}</p>
-        <h2>{t.architectureTitle}</h2>
-      </div>
-      <p>{t.architectureLead}</p>
+<section class="experience-section section">
+  <div class="section-shell experience-grid">
+    <div class="experience-copy">
+      <p class="eyebrow">{t.surfaces[0].label}</p>
+      <h2>{t.surfaces[0].title}</h2>
+      <p>{t.surfaces[0].body}</p>
+      <a class="text-link" href={zh ? '/zh-cn/docs/' : '/docs/'}>{zh ? '查看托管体验' : 'Explore the hosted experience'} →</a>
     </div>
-    <div class="architecture-diagram">
-      {t.nodes.map(([title, label, description], index) => (
-        <>
-          {index > 0 && <div class="flow-line" aria-hidden="true"></div>}
-          <article class:list={['architecture-node', index === 1 && 'core']}>
-            <span class="node-label">{label}</span>
-            <div>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </div>
-          </article>
-        </>
+    <div class="hosted-stage">
+      <div class="signin-card">
+        <div class="mini-brand"><span class="brand-tile">R</span><strong>Realmroot</strong></div>
+        <small>{t.hosted.label}</small>
+        <h3>{t.hosted.title}</h3>
+        <label>{t.hosted.user}<span></span></label>
+        <label>{t.hosted.password}<span></span></label>
+        <b>{t.hosted.button}</b>
+        {t.hosted.alternatives.map((item) => <em>{item}</em>)}
+      </div>
+      <div class="account-card">
+        <small>{t.account.label}</small>
+        <h3>{t.account.title}</h3>
+        <div class="account-avatar">RR</div>
+        {t.account.items.map((item, index) => <span class:list={[index === 0 && 'active']}><i></i>{item}</span>)}
+        <p>{t.account.detail}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="agent-section section" id="agents">
+  <div class="section-shell">
+    <div class="agent-head">
+      <div>
+        <p class="eyebrow light">{t.agentKicker}</p>
+        <h2>{t.agentTitle}</h2>
+      </div>
+      <p>{t.agentBody}</p>
+    </div>
+    <div class="authority-flow">
+      {t.flow.map(([title, description], index) => (
+        <article>
+          <span>0{index + 1}</span>
+          <div class="flow-symbol" aria-hidden="true">{index === 0 ? 'A' : index === 1 ? '✓' : index === 2 ? 'G' : '↗'}</div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </article>
       ))}
     </div>
-  </div>
-</section>
-
-<section class="section agent-section" id="agents">
-  <div class="section-shell agent-layout">
-    <div class="agent-copy">
-      <p class="eyebrow">{t.agentEyebrow}</p>
-      <h2>{t.agentTitle}</h2>
-      <p>{t.agentLead}</p>
-      <div class="agent-points">
-        {t.points.map((point, index) => (
-          <div class="agent-point">
-            <span>0{index + 1}</span>
-            <strong>{point}</strong>
-          </div>
-        ))}
-      </div>
-    </div>
-    <div class="agent-terminal" aria-label="Example agent authorization flow">
-      <div class="terminal-bar"><span></span><span></span><span></span></div>
-      <pre class="terminal-content"><span class="prompt">$</span> realmroot agent enroll
-
-<span class="dim">identity</span>  agent_01J...
-<span class="dim">host</span>      codex-macbook
-<span class="success">✓ Controller approved enrollment</span>
-
-<span class="prompt">$</span> realmroot access request \
-  --resource billing-api \
-  --scope invoices:read
-
-<span class="dim">authority</span> exact resource + scope
-<span class="dim">token</span>     short-lived, DPoP-bound
-<span class="success">✓ Grant approved · 30 minutes</span>
-
-<span class="prompt">$</span> curl https://api.example.com/invoices
-<span class="success">200 OK</span></pre>
+    <div class="agent-notes">
+      {t.agentNotes.map((note) => <span><b>✓</b>{note}</span>)}
     </div>
   </div>
 </section>
 
-<section class="section-shell statement">
-  <h2>{t.statement}</h2>
-  <p>{t.statementLead}</p>
-  <a class="button button-dark" href="https://github.com/realmroot/realmroot">{t.primary}</a>
+<section class="architecture-section section" id="architecture">
+  <div class="section-shell architecture-layout">
+    <div class="architecture-copy">
+      <p class="eyebrow">{t.architectureKicker}</p>
+      <h2>{t.architectureTitle}</h2>
+      <p>{t.architectureBody}</p>
+    </div>
+    <div class="realm-boundary">
+      {t.archCards.map(([title, description], index) => (
+        <article class:list={[index === 1 && 'realm-core']}>
+          <span>{index === 0 ? 'CLIENTS' : index === 1 ? 'REALM' : 'RESOURCES'}</span>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </article>
+      ))}
+    </div>
+    <div class="standards-row">
+      <span>{zh ? '基于标准协议' : 'Built on standards'}</span>
+      {t.standards.map((standard) => <b>{standard}</b>)}
+    </div>
+  </div>
 </section>
 
 <section class="blog-preview">
   <div class="section-shell">
     <div class="blog-preview-header">
-      <h2>{t.blogTitle}</h2>
-      <a class="text-link" href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.allPosts} →</a>
+      <div>
+        <p class="eyebrow">{zh ? 'Blog' : 'Journal'}</p>
+        <h2>{t.blogTitle}</h2>
+      </div>
+      <a class="text-link" href={zh ? '/zh-cn/blog/' : '/blog/'}>{t.allPosts} →</a>
     </div>
     <div class="post-grid">
       {posts.map((post) => {
         const slug = post.id.replace(/^(en|zh-cn)\//, '');
-        const href = isChinese ? `/zh-cn/blog/${slug}/` : `/blog/${slug}/`;
+        const href = zh ? `/zh-cn/blog/${slug}/` : `/blog/${slug}/`;
         return (
           <a class="post-card" href={href}>
             <div class="meta">
@@ -245,5 +365,15 @@ const t = isChinese
         );
       })}
     </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="section-shell final-cta-inner">
+    <div>
+      <h2>{t.finalTitle}</h2>
+      <p>{t.finalBody}</p>
+    </div>
+    <a class="button button-inverted" href="https://github.com/realmroot/realmroot">{t.primary}</a>
   </div>
 </section>

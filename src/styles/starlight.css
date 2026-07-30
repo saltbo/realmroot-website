@@ -1,7 +1,7 @@
 :root {
-  --sl-color-accent-low: #efffc2;
-  --sl-color-accent: #789500;
-  --sl-color-accent-high: #283100;
+  --sl-color-accent-low: #f3e3dc;
+  --sl-color-accent: #a9583e;
+  --sl-color-accent-high: #52291b;
   --sl-color-white: #111816;
   --sl-color-gray-1: #27302d;
   --sl-color-gray-2: #48514e;
@@ -10,16 +10,16 @@
   --sl-color-gray-5: #d9dbd2;
   --sl-color-gray-6: #ebece5;
   --sl-color-black: #f4f4ee;
-  --sl-font: 'Manrope', system-ui, sans-serif;
-  --sl-font-mono: 'DM Mono', ui-monospace, monospace;
+  --sl-font: 'Geist Variable', Inter, system-ui, sans-serif;
+  --sl-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 :root[data-theme='dark'] {
   --sl-color-white: #f4f4ee;
   --sl-color-black: #111816;
-  --sl-color-accent-low: #283100;
-  --sl-color-accent: #d7ff52;
-  --sl-color-accent-high: #efffc2;
+  --sl-color-accent-low: #52291b;
+  --sl-color-accent: #e8a55a;
+  --sl-color-accent-high: #f3e3dc;
 }
 
 .site-title {
@@ -28,6 +28,6 @@
 }
 
 .hero h1 {
-  font-family: Georgia, serif;
+  font-family: 'Newsreader Variable', Georgia, serif;
   letter-spacing: -0.04em;
 }
