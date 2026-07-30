@@ -103,7 +103,7 @@ const t = isChinese
     <h1 set:html={t.headline.replace('Every actor', '<em>Every actor</em>').replace('每一种行动者', '<em>每一种行动者</em>')} />
     <p class="hero-lead">{t.lead}</p>
     <div class="hero-actions">
-      <a class="button button-lime" href="https://github.com/saltbo/realmroot#deploy">{t.primary}</a>
+      <a class="button button-lime" href="https://github.com/realmroot/realmroot#deploy">{t.primary}</a>
       <a class="button button-ghost" href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.secondary}</a>
     </div>
     <p class="hero-note"><span></span>{t.note}</p>
@@ -220,7 +220,7 @@ const t = isChinese
 <section class="section-shell statement">
   <h2>{t.statement}</h2>
   <p>{t.statementLead}</p>
-  <a class="button button-dark" href="https://github.com/saltbo/realmroot">{t.primary}</a>
+  <a class="button button-dark" href="https://github.com/realmroot/realmroot">{t.primary}</a>
 </section>
 
 <section class="blog-preview">

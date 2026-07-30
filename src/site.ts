@@ -1,6 +1,6 @@
 export const site = {
   name: 'Realmroot',
-  github: 'https://github.com/saltbo/realmroot',
+  github: 'https://github.com/realmroot/realmroot',
   description: 'Identity and delegated access for people, apps, and agents.',
 };
 
@@ -44,4 +44,3 @@ export const copy = {
     },
   },
 } satisfies Record<Locale, unknown>;
-
