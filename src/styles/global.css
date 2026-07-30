@@ -182,13 +182,18 @@ button:focus-visible {
   position: relative;
 }
 
-.product-switcher summary {
+.product-switcher summary,
+.product-switcher-trigger {
   display: flex;
   min-height: 44px;
   gap: 8px;
+  padding: 0;
   align-items: center;
+  border: 0;
   color: var(--ember);
+  background: transparent;
   cursor: pointer;
+  font: inherit;
   list-style: none;
 }
 
@@ -196,7 +201,8 @@ button:focus-visible {
   display: none;
 }
 
-.product-switcher summary:focus-visible {
+.product-switcher summary:focus-visible,
+.product-switcher-trigger:focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 5px;
 }
@@ -221,7 +227,7 @@ button:focus-visible {
   z-index: 60;
   top: 100%;
   left: -14px;
-  display: grid;
+  display: none;
   width: 278px;
   padding: 6px;
   border: 1px solid var(--line-strong);
@@ -231,8 +237,8 @@ button:focus-visible {
     0 2px 8px rgba(26, 27, 24, 0.05);
 }
 
-.product-switcher:not([open]) > .product-switcher-menu {
-  display: none;
+.product-switcher[open] > .product-switcher-menu {
+  display: grid;
 }
 
 @media (hover: hover) and (pointer: fine) {

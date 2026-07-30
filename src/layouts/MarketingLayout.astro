@@ -59,11 +59,11 @@ const canonical = new URL(canonicalPath, Astro.site);
           <span>Realmroot</span>
         </a>
         <nav class="desktop-nav" aria-label="Primary navigation">
-          <details class="product-switcher">
-            <summary>
+          <div class="product-switcher">
+            <button class="product-switcher-trigger" type="button" aria-haspopup="true">
               <span>{productLabel}</span>
               <span class="product-switcher-chevron" aria-hidden="true"></span>
-            </summary>
+            </button>
             <div class="product-switcher-menu" aria-label={productLabel}>
               <a class:list={['product-switcher-option', { active: !isWallet }]} href={t.home} aria-current={!isWallet ? 'page' : undefined}>
                 <span class="product-switcher-mark" aria-hidden="true">I</span>
@@ -82,7 +82,7 @@ const canonical = new URL(canonicalPath, Astro.site);
                 <span class="product-switcher-arrow" aria-hidden="true">→</span>
               </a>
             </div>
-          </details>
+          </div>
           {isWallet ? (
             <>
               <a href={`${walletLandingHref}#wallet`}>{isChinese ? '概览' : 'Overview'}</a>
