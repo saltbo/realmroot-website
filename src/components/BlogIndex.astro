@@ -8,6 +8,9 @@ interface Props {
 
 const { locale } = Astro.props;
 const isChinese = locale === 'zh-CN';
+const titleLines = isChinese
+  ? ['让 Agent 行动。', '让授权有边界。']
+  : ['Let agents act.', 'Every grant, explicit.'];
 const posts = (await getCollection('blog'))
   .filter((post) => post.data.language === locale)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
@@ -15,7 +18,7 @@ const posts = (await getCollection('blog'))
 
 <section class="section-shell blog-hero">
   <p class="eyebrow"><span></span>{isChinese ? 'Agent 身份 · 授权 · 架构' : 'Agent identity · Authority · Architecture'}</p>
-  <h1>{isChinese ? '让 Agent 行动，也让每次授权都有边界。' : 'Let agents act. Keep every grant explainable.'}</h1>
+  <h1 class="heading-lines">{titleLines.map((line) => <span>{line}</span>)}</h1>
   <p>
     {isChinese
       ? '关于持久 Agent 身份、委托 API 访问与产品信任边界的实践。'

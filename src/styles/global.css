@@ -16,6 +16,7 @@
   --dark-soft: #20221e;
   --sans: 'Geist Variable', Inter, system-ui, sans-serif;
   --serif: 'Newsreader Variable', Georgia, serif;
+  --serif-zh: 'Songti SC', STSong, 'Noto Serif CJK SC', 'Source Han Serif SC', serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --max: 1280px;
 }
@@ -50,6 +51,10 @@ h1,
 h2,
 h3 {
   text-wrap: balance;
+}
+
+.heading-lines > span {
+  display: block;
 }
 
 p {
@@ -300,6 +305,14 @@ button:focus-visible {
 
 .hero h1 span:first-child {
   white-space: nowrap;
+}
+
+html[lang='zh-CN'] .hero h1 {
+  font-family: var(--serif-zh);
+  font-size: clamp(58px, 4.8vw, 69px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
 }
 
 .hero-lead {
@@ -615,6 +628,14 @@ button:focus-visible {
   line-height: 1;
 }
 
+html[lang='zh-CN'] .authority-heading h2 {
+  font-family: var(--serif-zh);
+  font-size: clamp(46px, 4.1vw, 59px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
 .authority-heading p {
   margin: 0 0 7px;
   color: #a7aaa1;
@@ -687,6 +708,19 @@ button:focus-visible {
   line-height: 0.98;
 }
 
+html[lang='zh-CN'] .section-intro h2,
+html[lang='zh-CN'] .grant-copy h2,
+html[lang='zh-CN'] .realm-copy h2,
+html[lang='zh-CN'] .blog-preview-header h2,
+html[lang='zh-CN'] .final-cta h2,
+html[lang='zh-CN'] .blog-hero h1 {
+  font-family: var(--serif-zh);
+  font-size: clamp(46px, 4.1vw, 59px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
 .section-intro > p:last-child {
   max-width: 500px;
   margin: 0 0 7px;
@@ -730,6 +764,13 @@ button:focus-visible {
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 1;
+}
+
+html[lang='zh-CN'] .distinction-grid h3 {
+  font-family: var(--serif-zh);
+  font-size: 32px;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 .distinction-grid p {
@@ -1067,6 +1108,13 @@ button:focus-visible {
   transition: color 150ms ease;
 }
 
+html[lang='zh-CN'] .post-card h3 {
+  font-family: var(--serif-zh);
+  font-size: 28px;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
 .post-card p {
   margin: 0;
   color: var(--body);
@@ -1232,6 +1280,14 @@ button:focus-visible {
   line-height: 0.98;
 }
 
+html[lang='zh-CN'] .article-header h1 {
+  font-family: var(--serif-zh);
+  font-size: clamp(44px, 5vw, 68px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
 .article-header .description {
   max-width: 650px;
   margin: 26px 0 0;
@@ -1254,6 +1310,11 @@ button:focus-visible {
   font-family: var(--serif);
   font-size: 19px;
   line-height: 1.72;
+}
+
+html[lang='zh-CN'] .article-content {
+  font-family: var(--serif-zh);
+  line-height: 1.82;
 }
 
 .article-content h2,
@@ -1526,7 +1587,7 @@ button:focus-visible {
 
   html[lang='zh-CN'] .hero h1 {
     font-size: 42px;
-    line-height: 0.98;
+    line-height: 1.06;
   }
 
   .hero h1 span,
@@ -1632,13 +1693,25 @@ button:focus-visible {
     border-right: 0;
   }
 
+  .authority-heading h2,
   .section-intro h2,
   .grant-copy h2,
   .realm-copy h2,
   .blog-preview-header h2,
   .final-cta h2,
   .blog-hero h1 {
-    font-size: 44px;
+    font-size: 40px;
+  }
+
+  html[lang='zh-CN'] .authority-heading h2,
+  html[lang='zh-CN'] .section-intro h2,
+  html[lang='zh-CN'] .grant-copy h2,
+  html[lang='zh-CN'] .realm-copy h2,
+  html[lang='zh-CN'] .blog-preview-header h2,
+  html[lang='zh-CN'] .final-cta h2,
+  html[lang='zh-CN'] .blog-hero h1 {
+    font-size: 40px;
+    line-height: 1.12;
   }
 
   .distinction-grid article,
@@ -1711,6 +1784,33 @@ button:focus-visible {
     gap: 14px;
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 340px) {
+  .hero h1 {
+    font-size: 44px;
+  }
+
+  html[lang='zh-CN'] .hero h1 {
+    font-size: 38px;
+  }
+
+  .authority-heading h2,
+  .section-intro h2,
+  .grant-copy h2,
+  .realm-copy h2,
+  .blog-preview-header h2,
+  .final-cta h2,
+  .blog-hero h1,
+  html[lang='zh-CN'] .authority-heading h2,
+  html[lang='zh-CN'] .section-intro h2,
+  html[lang='zh-CN'] .grant-copy h2,
+  html[lang='zh-CN'] .realm-copy h2,
+  html[lang='zh-CN'] .blog-preview-header h2,
+  html[lang='zh-CN'] .final-cta h2,
+  html[lang='zh-CN'] .blog-hero h1 {
+    font-size: 36px;
   }
 }
 
