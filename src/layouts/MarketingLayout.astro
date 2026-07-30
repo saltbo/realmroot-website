@@ -22,7 +22,6 @@ const isChinese = locale === 'zh-CN';
 const isWallet = surface === 'wallet';
 const walletLandingHref = isChinese ? '/zh-cn/wallet/' : '/wallet/';
 const productLabel = isChinese ? '产品' : 'Products';
-const currentLabel = isChinese ? '当前' : 'Current';
 const languageHref = isChinese
   ? canonicalPath.replace(/^\/zh-cn/, '') || '/'
   : `/zh-cn${canonicalPath === '/' ? '/' : canonicalPath}`;
@@ -67,18 +66,20 @@ const canonical = new URL(canonicalPath, Astro.site);
             </summary>
             <div class="product-switcher-menu" aria-label={productLabel}>
               <a class:list={['product-switcher-option', { active: !isWallet }]} href={t.home} aria-current={!isWallet ? 'page' : undefined}>
-                <span class="product-switcher-name">
-                  Identity
-                  {!isWallet && <span class="product-switcher-current">{currentLabel}</span>}
+                <span class="product-switcher-mark" aria-hidden="true">I</span>
+                <span class="product-switcher-copy">
+                  <span class="product-switcher-name">Identity</span>
+                  <span>{isChinese ? '用户 · 应用 · Agent' : 'People · Apps · Agents'}</span>
                 </span>
-                <span>{isChinese ? '面向用户、应用和 Agent 的身份与委托授权' : 'Identity and delegated authority for users, apps, and agents'}</span>
+                <span class="product-switcher-arrow" aria-hidden="true">→</span>
               </a>
               <a class:list={['product-switcher-option', { active: isWallet }]} href={walletLandingHref} aria-current={isWallet ? 'page' : undefined}>
-                <span class="product-switcher-name">
-                  Wallet
-                  {isWallet && <span class="product-switcher-current">{currentLabel}</span>}
+                <span class="product-switcher-mark" aria-hidden="true">W</span>
+                <span class="product-switcher-copy">
+                  <span class="product-switcher-name">Wallet</span>
+                  <span>{isChinese ? '预算 · x402 支付' : 'Budgets · x402 payments'}</span>
                 </span>
-                <span>{isChinese ? '面向 Agent 的预算控制与 x402 支付' : 'Budget controls and x402 payments for agents'}</span>
+                <span class="product-switcher-arrow" aria-hidden="true">→</span>
               </a>
             </div>
           </details>
@@ -105,12 +106,20 @@ const canonical = new URL(canonicalPath, Astro.site);
             </summary>
             <div class="product-switcher-menu" aria-label={productLabel}>
               <a class:list={['product-switcher-option', { active: !isWallet }]} href={t.home} aria-current={!isWallet ? 'page' : undefined}>
-                <span class="product-switcher-name">Identity</span>
-                <span>{isChinese ? '身份与委托授权' : 'Identity and delegated authority'}</span>
+                <span class="product-switcher-mark" aria-hidden="true">I</span>
+                <span class="product-switcher-copy">
+                  <span class="product-switcher-name">Identity</span>
+                  <span>{isChinese ? '用户 · 应用 · Agent' : 'People · Apps · Agents'}</span>
+                </span>
+                <span class="product-switcher-arrow" aria-hidden="true">→</span>
               </a>
               <a class:list={['product-switcher-option', { active: isWallet }]} href={walletLandingHref} aria-current={isWallet ? 'page' : undefined}>
-                <span class="product-switcher-name">Wallet</span>
-                <span>{isChinese ? 'Agent 预算与支付' : 'Agent budgets and payments'}</span>
+                <span class="product-switcher-mark" aria-hidden="true">W</span>
+                <span class="product-switcher-copy">
+                  <span class="product-switcher-name">Wallet</span>
+                  <span>{isChinese ? '预算 · x402 支付' : 'Budgets · x402 payments'}</span>
+                </span>
+                <span class="product-switcher-arrow" aria-hidden="true">→</span>
               </a>
             </div>
           </details>

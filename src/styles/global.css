@@ -219,75 +219,108 @@ button:focus-visible {
 .product-switcher-menu {
   position: absolute;
   z-index: 60;
-  top: calc(100% + 8px);
-  left: -18px;
+  top: 100%;
+  left: -14px;
   display: grid;
-  width: 360px;
-  padding: 8px;
+  width: 278px;
+  padding: 6px;
   border: 1px solid var(--line-strong);
-  background: var(--canvas);
-  box-shadow: 0 22px 48px rgba(26, 27, 24, 0.14);
+  background: color-mix(in srgb, var(--canvas) 97%, white);
+  box-shadow:
+    0 18px 44px rgba(26, 27, 24, 0.11),
+    0 2px 8px rgba(26, 27, 24, 0.05);
 }
 
 .product-switcher:not([open]) > .product-switcher-menu {
   display: none;
 }
 
-.product-switcher-menu::before {
-  position: absolute;
-  right: 0;
-  bottom: 100%;
-  left: 0;
-  height: 10px;
-  content: '';
+@media (hover: hover) and (pointer: fine) {
+  .desktop-nav .product-switcher:hover > .product-switcher-menu,
+  .desktop-nav .product-switcher:focus-within > .product-switcher-menu {
+    display: grid;
+  }
+
+  .desktop-nav .product-switcher:hover .product-switcher-chevron,
+  .desktop-nav .product-switcher:focus-within .product-switcher-chevron {
+    margin-top: 4px;
+    transform: rotate(225deg);
+  }
 }
 
 .product-switcher-option {
   display: grid;
-  gap: 4px;
-  padding: 15px 16px;
-  border-left: 2px solid transparent;
+  min-height: 62px;
+  grid-template-columns: 32px 1fr 16px;
+  gap: 11px;
+  padding: 9px 10px;
+  align-items: center;
+  border: 1px solid transparent;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
 }
 
 .product-switcher-option + .product-switcher-option {
-  border-top: 1px solid var(--line);
+  margin-top: 3px;
 }
 
 .product-switcher-option:hover,
 .product-switcher-option:focus-visible {
-  border-left-color: var(--ember);
-  outline: 0;
-  background: var(--paper);
+  border-color: var(--line);
+  outline: none;
+  background: color-mix(in srgb, var(--paper) 72%, white);
 }
 
-.product-switcher-option > span:last-child {
+.product-switcher-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.product-switcher-copy > span:last-child {
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 470;
-  line-height: 1.5;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
 }
 
 .product-switcher-name {
-  display: flex;
-  gap: 10px;
-  align-items: center;
   color: var(--ink);
   font-size: 14px;
   font-weight: 700;
 }
 
-.product-switcher-option.active {
-  border-left-color: var(--ember);
+.product-switcher-mark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+  background: transparent;
+  font-size: 10px;
+  font-weight: 760;
 }
 
-.product-switcher-current {
-  padding: 2px 6px;
+.product-switcher-option.active .product-switcher-mark {
+  border-color: var(--ember);
   color: var(--ember);
   background: var(--ember-soft);
-  font-size: 9px;
-  font-weight: 760;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+}
+
+.product-switcher-arrow {
+  color: var(--line-strong);
+  font-size: 15px;
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.product-switcher-option:hover .product-switcher-arrow,
+.product-switcher-option:focus-visible .product-switcher-arrow {
+  color: var(--ember);
+  transform: translateX(2px);
 }
 
 .compact-nav {
