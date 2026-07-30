@@ -7,6 +7,7 @@ interface Props {
   description: string;
   locale?: Locale;
   canonicalPath?: string;
+  surface?: 'identity' | 'wallet';
 }
 
 const {
@@ -14,9 +15,12 @@ const {
   description,
   locale = 'en',
   canonicalPath = Astro.url.pathname,
+  surface = 'identity',
 } = Astro.props;
 const t = copy[locale];
 const isChinese = locale === 'zh-CN';
+const isWallet = surface === 'wallet';
+const walletLandingHref = isChinese ? '/zh-cn/wallet/' : '/wallet/';
 const languageHref = isChinese
   ? canonicalPath.replace(/^\/zh-cn/, '') || '/'
   : `/zh-cn${canonicalPath === '/' ? '/' : canonicalPath}`;
@@ -54,21 +58,36 @@ const canonical = new URL(canonicalPath, Astro.site);
           <span>Realmroot</span>
         </a>
         <nav class="desktop-nav" aria-label="Primary navigation">
-          <a href={`${t.home}#agents`}>{t.nav.agents}</a>
-          <a href={`${t.home}#products`}>{t.nav.product}</a>
-          <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
-          <a href={site.wallet}>{t.nav.wallet}</a>
-          <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
+          {isWallet ? (
+            <>
+              <a href={`${walletLandingHref}#wallet`}>{isChinese ? '概览' : 'Overview'}</a>
+              <a href={`${walletLandingHref}#controls`}>{isChinese ? '控制' : 'Controls'}</a>
+              <a href={`${walletLandingHref}#flow`}>{isChinese ? '支付流程' : 'Payment flow'}</a>
+              <a href={t.home}>Identity</a>
+            </>
+          ) : (
+            <>
+              <a href={`${t.home}#agents`}>{t.nav.agents}</a>
+              <a href={`${t.home}#product`}>{t.nav.product}</a>
+              <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
+              <a href={walletLandingHref}>{t.nav.wallet}</a>
+              <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
+            </>
+          )}
           <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
         </nav>
         <nav class="compact-nav" aria-label="Primary navigation">
-          <a href={site.wallet}>{t.nav.wallet}</a>
-          <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
-          <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
+          <a href={isWallet ? t.home : walletLandingHref}>{isWallet ? 'Identity' : t.nav.wallet}</a>
+          <a href={isWallet ? `${walletLandingHref}#controls` : (isChinese ? '/zh-cn/docs/' : '/docs/')}>
+            {isWallet ? (isChinese ? '控制' : 'Controls') : t.nav.docs}
+          </a>
+          {!isWallet && <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>}
         </nav>
         <div class="nav-actions">
           <a class="language-link" href={languageHref}>{isChinese ? 'EN' : '中文'}</a>
-          <a class="button button-dark button-small" href={site.github}>{t.nav.github}</a>
+          <a class="button button-dark button-small" href={isWallet ? site.wallet : site.github}>
+            {isWallet ? (isChinese ? '打开 Wallet' : 'Open Wallet') : t.nav.github}
+          </a>
         </div>
       </div>
     </header>
@@ -82,12 +101,14 @@ const canonical = new URL(canonicalPath, Astro.site);
             <span class="brand-tile" aria-hidden="true">R</span>
             <span>Realmroot</span>
           </a>
-          <p>{t.footer.statement}</p>
+          <p>{isWallet
+            ? (isChinese ? '给 Agent 预算，而不是钱包密钥。' : 'Give Agents a budget, not your wallet keys.')
+            : t.footer.statement}</p>
         </div>
         <div>
           <strong>{t.footer.product}</strong>
-          <a href={`${t.home}#products`}>Realmroot Identity</a>
-          <a href={site.wallet}>Realmroot Wallet</a>
+          <a href={t.home}>Realmroot Identity</a>
+          <a href={walletLandingHref}>Realmroot Wallet</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
         </div>
         <div>

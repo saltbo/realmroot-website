@@ -1,0 +1,209 @@
+---
+import { site, type Locale } from '../site';
+import PhraseText from './PhraseText.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const zh = locale === 'zh-CN';
+const t = zh
+  ? {
+      eyebrow: 'OIDC-native Agent 支付',
+      title: ['给 Agent 预算。', '把密钥留给用户。'],
+      lead: '一个属于用户的钱包，为每个 Agent 设置明确、可撤销的支付边界。通过 Base 上的标准 x402 完成支付。',
+      primary: '打开 Wallet',
+      secondary: '进入 Sandbox',
+      trust: ['不向 Agent 暴露私钥', '每次支付验证 DPoP', '独立 Agent 预算'],
+      preview: {
+        balance: '可用余额',
+        protected: 'Base Mainnet · 受保护',
+        policy: '有效支付策略',
+        spent: '已使用',
+        budget: '预算',
+        settled: '刚刚结算',
+      },
+      controlsEyebrow: 'Spending controls',
+      controlsTitle: ['每个 Agent，', '自己的支付边界。'],
+      controlsBody: '身份建立之后，支付权限仍然需要单独决定。所有限制都会在每次签名前重新检查。',
+      controls: [
+        ['01', '精确预算', '分别设置总额、单笔、每日与每月 USDC 限额，并为授权设置明确到期时间。'],
+        ['02', '明确对象', '可限定商户 Origin、收款地址与允许支付的资产，避免预算被挪作其他用途。'],
+        ['03', '随时停止', '暂停一个 Agent，或立即冻结所有 Agent 支付。策略变更无需轮换钱包。'],
+      ],
+      flowEyebrow: 'x402 payment flow',
+      flowTitle: ['Agent 完成支付。', 'Wallet 守住边界。'],
+      flow: [
+        ['请求', '业务 API 返回 PAYMENT-REQUIRED。'],
+        ['授权', 'Agent 提交支付要求与稳定的幂等键。'],
+        ['签名', 'Wallet 校验身份、DPoP 与预算后请求 CDP 签名。'],
+        ['结算', 'Agent 重试业务请求，Wallet 验证链上 USDC 转账。'],
+      ],
+      securityEyebrow: 'Trust boundary',
+      securityTitle: 'Agent 永远拿不到钱包密钥。',
+      securityBody: 'CDP 持有签名能力。Wallet 只接受短期、DPoP 绑定的 Agent Token，并在签名前执行控制者定义的支付策略。',
+      securityFacts: [
+        ['Identity', '任何兼容的 OIDC Provider；Realmroot 可选'],
+        ['Signing', 'CDP delegated signing，不导出用户私钥'],
+        ['Network', 'Base Mainnet；Sandbox 使用 Base Sepolia'],
+        ['Recovery', '幂等授权、结算验证与完整支付审计'],
+      ],
+      finalTitle: '让 Agent 支付，而不是持有你的钱包。',
+      finalBody: '从 Sandbox 开始，为第一个 Agent 配置一条可撤销的 USDC 支付策略。',
+    }
+  : {
+      eyebrow: 'OIDC-native Agent payments',
+      title: ['Give Agents a budget.', 'Keep the keys.'],
+      lead: 'One wallet owned by the user. Explicit, revocable spending boundaries for every Agent. Standard x402 payments on Base.',
+      primary: 'Open Wallet',
+      secondary: 'Explore Sandbox',
+      trust: ['No private keys exposed', 'DPoP on every payment', 'Per-Agent budgets'],
+      preview: {
+        balance: 'Available balance',
+        protected: 'Base Mainnet · Protected',
+        policy: 'Active spending policy',
+        spent: 'Spent',
+        budget: 'Budget',
+        settled: 'Settled just now',
+      },
+      controlsEyebrow: 'Spending controls',
+      controlsTitle: ['Every Agent.', 'Its own payment boundary.'],
+      controlsBody: 'Identity does not imply spending authority. Every restriction is checked again before every signature.',
+      controls: [
+        ['01', 'Exact budgets', 'Set total, per-payment, daily, and monthly USDC limits with an explicit expiration time.'],
+        ['02', 'Named destinations', 'Allow only approved merchant origins, recipient addresses, and payment assets.'],
+        ['03', 'Immediate control', 'Pause one Agent or freeze every Agent payment without rotating the user wallet.'],
+      ],
+      flowEyebrow: 'x402 payment flow',
+      flowTitle: ['The Agent pays.', 'The Wallet holds the boundary.'],
+      flow: [
+        ['Request', 'The business API returns PAYMENT-REQUIRED.'],
+        ['Authorize', 'The Agent forwards the requirement with a stable idempotency key.'],
+        ['Sign', 'Wallet checks identity, DPoP, and policy before asking CDP to sign.'],
+        ['Settle', 'The Agent retries the request and Wallet verifies the USDC transfer.'],
+      ],
+      securityEyebrow: 'Trust boundary',
+      securityTitle: 'The Agent never receives a wallet key.',
+      securityBody: 'CDP holds signing authority. Wallet accepts short-lived, DPoP-bound Agent tokens and applies controller-defined policy before every signature.',
+      securityFacts: [
+        ['Identity', 'Any compatible OIDC provider; Realmroot is optional'],
+        ['Signing', 'CDP delegated signing with no private-key export'],
+        ['Network', 'Base Mainnet; Base Sepolia in Sandbox'],
+        ['Recovery', 'Idempotent authorization, settlement checks, full audit'],
+      ],
+      finalTitle: 'Let Agents pay without holding your wallet.',
+      finalBody: 'Start in Sandbox and give your first Agent a revocable USDC spending policy.',
+    };
+---
+
+<section class="wallet-hero section-shell" id="wallet">
+  <div class="wallet-hero-copy">
+    <p class="eyebrow"><span></span>{t.eyebrow}</p>
+    <h1 class="heading-lines">{t.title.map((line) => <span>{line}</span>)}</h1>
+    <p class="wallet-hero-lead"><PhraseText locale={locale} text={t.lead} /></p>
+    <div class="hero-actions">
+      <a class="button button-primary" href={site.wallet}>{t.primary}<span aria-hidden="true">↗</span></a>
+      <a class="button button-secondary" href={`${site.wallet}/sandbox`}>{t.secondary}</a>
+    </div>
+    <div class="wallet-trust">
+      {t.trust.map((item) => <span><i></i>{item}</span>)}
+    </div>
+  </div>
+
+  <div class="wallet-preview" aria-label="Realmroot Wallet product preview">
+    <div class="wallet-preview-bar">
+      <span></span><span></span><span></span>
+      <small>wallet.realmroot.dev</small>
+    </div>
+    <div class="wallet-preview-balance">
+      <small>{t.preview.balance}</small>
+      <strong>2,480.00 <span>USDC</span></strong>
+      <p><i></i>{t.preview.protected}</p>
+    </div>
+    <div class="wallet-preview-agent">
+      <span class="wallet-agent-mark">A</span>
+      <div><strong>Research Agent</strong><small>{t.preview.policy}</small></div>
+      <span class="wallet-status"><i></i>Active</span>
+    </div>
+    <div class="wallet-preview-limit">
+      <div><span>{t.preview.spent}</span><strong>$23.40</strong></div>
+      <div><span>{t.preview.budget}</span><strong>$100.00</strong></div>
+    </div>
+    <div class="wallet-progress"><span></span></div>
+    <div class="wallet-preview-payment">
+      <span>→</span>
+      <div><strong>api.weather.dev</strong><small>{t.preview.settled}</small></div>
+      <strong>$0.025</strong>
+    </div>
+  </div>
+</section>
+
+<section class="wallet-controls section" id="controls">
+  <div class="section-shell">
+    <div class="wallet-section-header">
+      <div>
+        <p class="eyebrow"><span></span>{t.controlsEyebrow}</p>
+        <h2 class="heading-lines">{t.controlsTitle.map((line) => <span>{line}</span>)}</h2>
+      </div>
+      <p><PhraseText locale={locale} text={t.controlsBody} /></p>
+    </div>
+    <div class="wallet-control-grid">
+      {t.controls.map(([number, title, body]) => (
+        <article>
+          <span>{number}</span>
+          <h3>{title}</h3>
+          <p><PhraseText locale={locale} text={body} /></p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="wallet-flow section" id="flow">
+  <div class="section-shell">
+    <p class="eyebrow light"><span></span>{t.flowEyebrow}</p>
+    <h2 class="heading-lines">{t.flowTitle.map((line) => <span>{line}</span>)}</h2>
+    <div class="wallet-flow-grid">
+      {t.flow.map(([title, body], index) => (
+        <article>
+          <span>0{index + 1}</span>
+          <h3>{title}</h3>
+          <p><PhraseText locale={locale} text={body} /></p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="wallet-security section">
+  <div class="section-shell wallet-security-layout">
+    <div>
+      <p class="eyebrow"><span></span>{t.securityEyebrow}</p>
+      <h2>{t.securityTitle}</h2>
+      <p><PhraseText locale={locale} text={t.securityBody} /></p>
+    </div>
+    <dl>
+      {t.securityFacts.map(([term, description]) => (
+        <div>
+          <dt>{term}</dt>
+          <dd><PhraseText locale={locale} text={description} /></dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<section class="wallet-final">
+  <div class="section-shell wallet-final-inner">
+    <div>
+      <p class="eyebrow light"><span></span>OIDC · DPoP · x402 · USDC</p>
+      <h2>{t.finalTitle}</h2>
+      <p><PhraseText locale={locale} text={t.finalBody} /></p>
+    </div>
+    <div class="final-actions">
+      <a class="button button-inverted" href={site.wallet}>{t.primary}</a>
+      <a class="button button-ghost-light" href={`${site.wallet}/sandbox`}>{t.secondary}</a>
+    </div>
+  </div>
+</section>

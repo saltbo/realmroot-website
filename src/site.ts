@@ -12,7 +12,7 @@ export const copy = {
     lang: 'en',
     home: '/',
     nav: {
-      product: 'Products',
+      product: 'Product',
       architecture: 'Architecture',
       agents: 'Agents',
       blog: 'Blog',
