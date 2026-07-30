@@ -14,12 +14,12 @@ const posts = (await getCollection('blog'))
 ---
 
 <section class="section-shell blog-hero">
-  <p class="eyebrow">{isChinese ? '观点 · 架构 · 发布' : 'Ideas · Architecture · Releases'}</p>
-  <h1>{isChinese ? '关于身份、授权与 Agent 的思考。' : 'Thinking about identity, authority, and agents.'}</h1>
+  <p class="eyebrow"><span></span>{isChinese ? 'Agent 身份 · 授权 · 架构' : 'Agent identity · Authority · Architecture'}</p>
+  <h1>{isChinese ? '让 Agent 行动，也让每次授权都有边界。' : 'Let agents act. Keep every grant explainable.'}</h1>
   <p>
     {isChinese
-      ? '来自 Realmroot 团队的产品思考、架构决策与实践指南。'
-      : 'Product thinking, architecture decisions, and field notes from the Realmroot project.'}
+      ? '关于持久 Agent 身份、委托 API 访问与产品信任边界的实践。'
+      : 'Field notes on durable Agent identity, delegated API access, and product trust boundaries.'}
   </p>
 </section>
 
@@ -41,4 +41,3 @@ const posts = (await getCollection('blog'))
     })}
   </div>
 </section>
-

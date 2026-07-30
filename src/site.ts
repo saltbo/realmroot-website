@@ -1,7 +1,7 @@
 export const site = {
   name: 'Realmroot',
   github: 'https://github.com/realmroot/realmroot',
-  description: 'Identity and delegated access for people, apps, and agents.',
+  description: 'Durable identity and explicit delegated authority for AI agents.',
 };
 
 export type Locale = 'en' | 'zh-CN';
@@ -19,7 +19,7 @@ export const copy = {
       github: 'View on GitHub',
     },
     footer: {
-      statement: 'Your product’s identity root.',
+      statement: 'Give every Agent a real identity.',
       product: 'Product',
       resources: 'Resources',
       legal: 'Open source under AGPL-3.0.',
@@ -37,7 +37,7 @@ export const copy = {
       github: '在 GitHub 查看',
     },
     footer: {
-      statement: '每个产品自己的身份与委托授权根。',
+      statement: '给每个 Agent 一个真正的身份。',
       product: '产品',
       resources: '资源',
       legal: '基于 AGPL-3.0 开源。',

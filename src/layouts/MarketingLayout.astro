@@ -54,11 +54,11 @@ const canonical = new URL(canonicalPath, Astro.site);
           <span>Realmroot</span>
         </a>
         <nav class="desktop-nav" aria-label="Primary navigation">
-          <a href={`${t.home}#product`}>{t.nav.product}</a>
           <a href={`${t.home}#agents`}>{t.nav.agents}</a>
+          <a href={`${t.home}#product`}>{t.nav.product}</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
-          <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
           <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
+          <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
         </nav>
         <div class="nav-actions">
           <a class="language-link" href={languageHref}>{isChinese ? 'EN' : '中文'}</a>
@@ -80,9 +80,9 @@ const canonical = new URL(canonicalPath, Astro.site);
         </div>
         <div>
           <strong>{t.footer.product}</strong>
+          <a href={`${t.home}#agents`}>{t.nav.agents}</a>
           <a href={`${t.home}#product`}>{t.nav.product}</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
-          <a href={`${t.home}#agents`}>{t.nav.agents}</a>
         </div>
         <div>
           <strong>{t.footer.resources}</strong>
