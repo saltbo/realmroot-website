@@ -21,6 +21,8 @@ const t = copy[locale];
 const isChinese = locale === 'zh-CN';
 const isWallet = surface === 'wallet';
 const walletLandingHref = isChinese ? '/zh-cn/wallet/' : '/wallet/';
+const productLabel = isChinese ? '产品' : 'Products';
+const currentLabel = isChinese ? '当前' : 'Current';
 const languageHref = isChinese
   ? canonicalPath.replace(/^\/zh-cn/, '') || '/'
   : `/zh-cn${canonicalPath === '/' ? '/' : canonicalPath}`;
@@ -58,30 +60,63 @@ const canonical = new URL(canonicalPath, Astro.site);
           <span>Realmroot</span>
         </a>
         <nav class="desktop-nav" aria-label="Primary navigation">
+          <details class="product-switcher">
+            <summary>
+              <span>{productLabel}</span>
+              <span class="product-switcher-chevron" aria-hidden="true"></span>
+            </summary>
+            <div class="product-switcher-menu" aria-label={productLabel}>
+              <a class:list={['product-switcher-option', { active: !isWallet }]} href={t.home} aria-current={!isWallet ? 'page' : undefined}>
+                <span class="product-switcher-name">
+                  Identity
+                  {!isWallet && <span class="product-switcher-current">{currentLabel}</span>}
+                </span>
+                <span>{isChinese ? '面向用户、应用和 Agent 的身份与委托授权' : 'Identity and delegated authority for users, apps, and agents'}</span>
+              </a>
+              <a class:list={['product-switcher-option', { active: isWallet }]} href={walletLandingHref} aria-current={isWallet ? 'page' : undefined}>
+                <span class="product-switcher-name">
+                  Wallet
+                  {isWallet && <span class="product-switcher-current">{currentLabel}</span>}
+                </span>
+                <span>{isChinese ? '面向 Agent 的预算控制与 x402 支付' : 'Budget controls and x402 payments for agents'}</span>
+              </a>
+            </div>
+          </details>
           {isWallet ? (
             <>
               <a href={`${walletLandingHref}#wallet`}>{isChinese ? '概览' : 'Overview'}</a>
               <a href={`${walletLandingHref}#controls`}>{isChinese ? '控制' : 'Controls'}</a>
               <a href={`${walletLandingHref}#flow`}>{isChinese ? '支付流程' : 'Payment flow'}</a>
-              <a href={t.home}>Identity</a>
             </>
           ) : (
             <>
               <a href={`${t.home}#agents`}>{t.nav.agents}</a>
-              <a href={`${t.home}#product`}>{t.nav.product}</a>
               <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
-              <a href={walletLandingHref}>{t.nav.wallet}</a>
               <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
             </>
           )}
           <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
         </nav>
         <nav class="compact-nav" aria-label="Primary navigation">
-          <a href={isWallet ? t.home : walletLandingHref}>{isWallet ? 'Identity' : t.nav.wallet}</a>
+          <details class="product-switcher product-switcher-compact">
+            <summary>
+              <span>{productLabel}</span>
+              <span class="product-switcher-chevron" aria-hidden="true"></span>
+            </summary>
+            <div class="product-switcher-menu" aria-label={productLabel}>
+              <a class:list={['product-switcher-option', { active: !isWallet }]} href={t.home} aria-current={!isWallet ? 'page' : undefined}>
+                <span class="product-switcher-name">Identity</span>
+                <span>{isChinese ? '身份与委托授权' : 'Identity and delegated authority'}</span>
+              </a>
+              <a class:list={['product-switcher-option', { active: isWallet }]} href={walletLandingHref} aria-current={isWallet ? 'page' : undefined}>
+                <span class="product-switcher-name">Wallet</span>
+                <span>{isChinese ? 'Agent 预算与支付' : 'Agent budgets and payments'}</span>
+              </a>
+            </div>
+          </details>
           <a href={isWallet ? `${walletLandingHref}#controls` : (isChinese ? '/zh-cn/docs/' : '/docs/')}>
             {isWallet ? (isChinese ? '控制' : 'Controls') : t.nav.docs}
           </a>
-          {!isWallet && <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>}
         </nav>
         <div class="nav-actions">
           <a class="language-link" href={languageHref}>{isChinese ? 'EN' : '中文'}</a>
@@ -107,8 +142,8 @@ const canonical = new URL(canonicalPath, Astro.site);
         </div>
         <div>
           <strong>{t.footer.product}</strong>
-          <a href={t.home}>Realmroot Identity</a>
-          <a href={walletLandingHref}>Realmroot Wallet</a>
+          <a href={t.home}>Identity</a>
+          <a href={walletLandingHref}>Wallet</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
         </div>
         <div>
