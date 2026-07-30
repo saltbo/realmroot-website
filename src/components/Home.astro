@@ -97,10 +97,10 @@ const t = zh
       standardsTitle: '使用开放标准，而不是专有 Agent 隧道。',
       standards: ['OpenID Connect', 'OAuth 2.0', 'RFC 8693', 'DPoP', 'OpenAPI'],
       blogEyebrow: 'Journal',
-      blogTitle: ['Agent 身份', '与显式权限'],
+      blogTitle: ['Agent 身份与显式权限'],
       allPosts: '查看全部文章',
       read: '阅读',
-      finalTitle: ['给每个 Agent', '一个真正的身份。'],
+      finalTitle: ['给每个 Agent 一个真正的身份。'],
       finalBody: '运行一个 Realm，为人、应用、API 与 Agent 建立清晰的信任根。',
       deploy: '部署 Realmroot',
     }
@@ -185,10 +185,10 @@ const t = zh
       standardsTitle: 'Open standards. No proprietary Agent tunnel.',
       standards: ['OpenID Connect', 'OAuth 2.0', 'RFC 8693', 'DPoP', 'OpenAPI'],
       blogEyebrow: 'Journal',
-      blogTitle: ['Agent identity.', 'Explicit authority.'],
+      blogTitle: ['Agent identity. Explicit authority.'],
       allPosts: 'View all writing',
       read: 'Read',
-      finalTitle: ['Give your Agents', 'a real identity.'],
+      finalTitle: ['Give your Agents a real identity.'],
       finalBody: 'Run one realm as the trust root for people, applications, APIs, and Agents.',
       deploy: 'Deploy Realmroot',
     };
@@ -339,7 +339,7 @@ const t = zh
       </div>
     </div>
     <div class="standards-strip">
-      <strong>{t.standardsTitle}</strong>
+      <strong><PhraseText locale={locale} text={t.standardsTitle} /></strong>
       <div>{t.standards.map((standard) => <span>{standard}</span>)}</div>
     </div>
   </div>
