@@ -1,0 +1,22 @@
+---
+import type { Locale } from '../site';
+
+interface Props {
+  locale: Locale;
+  text: string;
+}
+
+const { locale, text } = Astro.props;
+const segments =
+  locale === 'zh-CN'
+    ? [...new Intl.Segmenter('zh-CN', { granularity: 'word' }).segment(text)].map(({ segment }) => segment)
+    : [text];
+const parts = segments.map((segment) => ({
+  className: /\p{Script=Han}/u.test(segment) ? 'phrase-segment' : '',
+  text: segment,
+}));
+---
+
+{parts.map((part) => (
+  <span class={part.className}>{part.text}</span>
+))}

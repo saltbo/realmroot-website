@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import type { Locale } from '../site';
+import PhraseText from './PhraseText.astro';
 
 interface Props {
   locale: Locale;
@@ -197,7 +198,7 @@ const t = zh
   <div class="hero-copy">
     <p class="eyebrow"><span></span>{t.eyebrow}</p>
     <h1><span>{t.title[0]}</span><span>{t.title[1]}</span></h1>
-    <p class="hero-lead">{t.lead}</p>
+    <p class="hero-lead"><PhraseText locale={locale} text={t.lead} /></p>
     <div class="hero-actions">
       <a class="button button-primary" href="#authority">{t.primary}<span aria-hidden="true">→</span></a>
       <a class="button button-secondary" href={docsHref}>{t.secondary}</a>
@@ -249,14 +250,14 @@ const t = zh
   <div class="section-shell">
     <div class="authority-heading">
       <h2 class="heading-lines">{t.authorityTitle.map((line) => <span>{line}</span>)}</h2>
-      <p>{t.authorityNote}</p>
+      <p><PhraseText locale={locale} text={t.authorityNote} /></p>
     </div>
     <div class="authority-steps">
       {t.flow.map(([title, body], index) => (
         <article>
           <span>0{index + 1}</span>
           <h3>{title}</h3>
-          <p>{body}</p>
+          <p><PhraseText locale={locale} text={body} /></p>
         </article>
       ))}
     </div>
@@ -268,14 +269,14 @@ const t = zh
     <div class="section-intro">
       <p class="eyebrow"><span></span>{t.distinctionEyebrow}</p>
       <h2 class="heading-lines">{t.distinctionTitle.map((line) => <span>{line}</span>)}</h2>
-      <p>{t.distinctionBody}</p>
+      <p><PhraseText locale={locale} text={t.distinctionBody} /></p>
     </div>
     <div class="distinction-grid">
       {t.distinctions.map((item) => (
         <article>
           <span>{item.number}</span>
           <h3>{item.title}</h3>
-          <p>{item.body}</p>
+          <p><PhraseText locale={locale} text={item.body} /></p>
           <strong>{item.proof}</strong>
         </article>
       ))}
@@ -288,7 +289,7 @@ const t = zh
     <div class="grant-copy">
       <p class="eyebrow light"><span></span>{t.grantEyebrow}</p>
       <h2 class="heading-lines">{t.grantTitle.map((line) => <span>{line}</span>)}</h2>
-      <p>{t.grantBody}</p>
+      <p><PhraseText locale={locale} text={t.grantBody} /></p>
       <a class="text-link light-link" href={`${docsHref}concepts/agent-authority/`}>{zh ? '阅读 Agent 授权模型' : 'Read the Agent authority model'} →</a>
     </div>
     <div class="grant-ledger">
@@ -320,7 +321,7 @@ const t = zh
       <div class="realm-copy">
         <p class="eyebrow"><span></span>{t.realmEyebrow}</p>
         <h2 class="heading-lines">{t.realmTitle.map((line) => <span>{line}</span>)}</h2>
-        <p>{t.realmBody}</p>
+        <p><PhraseText locale={locale} text={t.realmBody} /></p>
         <div class="realm-boundary-facts">
           {t.boundary.map((item) => <span>{item}</span>)}
         </div>
@@ -331,7 +332,7 @@ const t = zh
           {t.realmActors.map(([actor, body]) => (
             <article>
               <span>{actor}</span>
-              <p>{body}</p>
+              <p><PhraseText locale={locale} text={body} /></p>
             </article>
           ))}
         </div>
@@ -364,7 +365,7 @@ const t = zh
               <span>{t.read} ↗</span>
             </div>
             <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
+            <p><PhraseText locale={locale} text={post.data.description} /></p>
           </a>
         );
       })}
@@ -377,7 +378,7 @@ const t = zh
     <div>
       <p class="eyebrow light"><span></span>One realm. Every actor. Explicit authority.</p>
       <h2 class="heading-lines">{t.finalTitle.map((line) => <span>{line}</span>)}</h2>
-      <p>{t.finalBody}</p>
+      <p><PhraseText locale={locale} text={t.finalBody} /></p>
     </div>
     <div class="final-actions">
       <a class="button button-inverted" href="https://github.com/realmroot/realmroot#deploy">{t.deploy}</a>
