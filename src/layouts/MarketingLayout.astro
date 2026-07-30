@@ -55,12 +55,14 @@ const canonical = new URL(canonicalPath, Astro.site);
         </a>
         <nav class="desktop-nav" aria-label="Primary navigation">
           <a href={`${t.home}#agents`}>{t.nav.agents}</a>
-          <a href={`${t.home}#product`}>{t.nav.product}</a>
+          <a href={`${t.home}#products`}>{t.nav.product}</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
+          <a href={site.wallet}>{t.nav.wallet}</a>
           <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
           <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
         </nav>
         <nav class="compact-nav" aria-label="Primary navigation">
+          <a href={site.wallet}>{t.nav.wallet}</a>
           <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
           <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
         </nav>
@@ -84,8 +86,8 @@ const canonical = new URL(canonicalPath, Astro.site);
         </div>
         <div>
           <strong>{t.footer.product}</strong>
-          <a href={`${t.home}#agents`}>{t.nav.agents}</a>
-          <a href={`${t.home}#product`}>{t.nav.product}</a>
+          <a href={`${t.home}#products`}>Realmroot Identity</a>
+          <a href={site.wallet}>Realmroot Wallet</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
         </div>
         <div>
