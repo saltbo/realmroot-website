@@ -1,0 +1,30 @@
+---
+title: Realm 边界
+description: 部署、Application、Organization 与用户池之间的关系。
+---
+
+Realmroot v1 将一个部署定义为一个 Auth Realm。
+
+一个部署拥有：
+
+- 一个 Better Auth 用户池
+- 一个 Issuer
+- 一个管理员界面
+- 一套登录、MFA、Connector、邮件与安全策略
+- 每个环境独立的数据库、对象存储、队列与 Secret
+
+## Application 共享身份
+
+Application 是 Realm 内的 OIDC Client。当多个应用有意共享账户、管理员与安全策略时，
+可以将它们注册到同一个 Realm。Application 不是用户隔离边界。
+
+## Organization 表达授权
+
+Organization 描述 Realm 内的成员关系与授权，但不会创建独立的 Issuer、
+身份提供商配置或用户池。
+
+## 独立产品使用独立 Realm
+
+如果产品需要独立的用户、管理员、Issuer、登录策略、事件响应、备份或删除生命周期，
+请部署新的 Realmroot 实例。
+

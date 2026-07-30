@@ -1,0 +1,34 @@
+---
+title: What is Realmroot?
+description: A deployable identity and delegated-access root for one product realm.
+---
+
+Realmroot gives a product team its own identity root: one user pool, one issuer,
+one admin console, and one hosted account center.
+
+Multiple applications can share a realm when they should share accounts and
+administrators. The same realm gives agents stable identities and
+controller-approved, scope-bound access to native and external API resources.
+
+## What it includes
+
+- Hosted sign-in, sign-up, password recovery, and OAuth consent
+- Account center for credentials, MFA, passkeys, sessions, and linked accounts
+- Admin console for applications, users, policy, roles, API resources, and branding
+- Standard OIDC integration for product applications
+- Resource-oriented management API with an OpenAPI contract
+- Durable agent identity and delegated API access
+
+## The core rule
+
+One Realmroot deployment is one identity realm.
+
+Products may register multiple OIDC applications inside that realm. When two
+products require separate users, administrators, issuer URLs, or security
+policy, deploy another Realmroot instance.
+
+## Start here
+
+Follow the [quick start](/docs/getting-started/quick-start/) to deploy a realm,
+create its first administrator, and connect a product application.
+

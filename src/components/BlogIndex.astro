@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import type { Locale } from '../site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isChinese = locale === 'zh-CN';
+const posts = (await getCollection('blog'))
+  .filter((post) => post.data.language === locale)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<section class="section-shell blog-hero">
+  <p class="eyebrow">{isChinese ? '观点 · 架构 · 发布' : 'Ideas · Architecture · Releases'}</p>
+  <h1>{isChinese ? '关于身份、授权与 Agent 的思考。' : 'Thinking about identity, authority, and agents.'}</h1>
+  <p>
+    {isChinese
+      ? '来自 Realmroot 团队的产品思考、架构决策与实践指南。'
+      : 'Product thinking, architecture decisions, and field notes from the Realmroot project.'}
+  </p>
+</section>
+
+<section class="section-shell blog-index">
+  <div class="post-grid">
+    {posts.map((post) => {
+      const slug = post.id.replace(/^(en|zh-cn)\//, '');
+      const href = isChinese ? `/zh-cn/blog/${slug}/` : `/blog/${slug}/`;
+      return (
+        <a class="post-card" href={href}>
+          <div class="meta">
+            <span>{post.data.publishedAt.toLocaleDateString(locale)}</span>
+            <span>{isChinese ? '阅读' : 'Read'} ↗</span>
+          </div>
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+        </a>
+      );
+    })}
+  </div>
+</section>
+

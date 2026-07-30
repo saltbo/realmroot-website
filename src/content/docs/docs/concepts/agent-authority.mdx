@@ -1,0 +1,34 @@
+---
+title: Agent authority
+description: Durable identities, host bindings, controller decisions, and direct resource access.
+---
+
+Realmroot separates a durable agent identity from the host registration and key
+that currently presents it.
+
+## Identity before authority
+
+Enrollment associates a host with a stable identity after controller approval.
+It does not grant API authority.
+
+Authority begins when an agent requests one API resource and an exact scope
+set. External resources also bind the request to one connected account.
+Expanding scopes, changing the account, or selecting another resource requires
+a new controller decision.
+
+## Direct access
+
+Realmroot is not an HTTP proxy. An approved grant produces a short-lived,
+audience-restricted, DPoP-bound token that the agent presents directly to the
+protected API.
+
+For Realmroot-native resources, Realmroot signs the token. For external
+resources, Realmroot performs standards-based OAuth exchange with the target
+authorization server.
+
+## Revocation
+
+Revoking a grant, connection, credential, agent, or host prevents new token
+issuance. Audit records identify the principal, controller, agent, host,
+resource, scopes, and outcome without storing raw credentials or access tokens.
+

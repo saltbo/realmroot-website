@@ -1,0 +1,32 @@
+---
+title: The realm boundary
+description: How deployments, applications, organizations, and user pools relate.
+---
+
+Realmroot v1 uses one deployment as one auth realm.
+
+One deployment owns:
+
+- one Better Auth user pool
+- one issuer
+- one administrator surface
+- one set of login, MFA, connector, email, and security policies
+- one database, asset bucket, queue, and secret set per environment
+
+## Applications share identity
+
+Applications are OIDC clients inside a realm. Register multiple applications
+when they intentionally share accounts, administrators, and security policy.
+An application is not a user-isolation boundary.
+
+## Organizations model authorization
+
+Organizations describe membership and authorization inside a realm. They do
+not create independent issuers, provider configuration, or user pools.
+
+## Separate products use separate realms
+
+Deploy another Realmroot instance for products that require independent users,
+administrators, issuers, login policy, incident response, backup, or deletion
+lifecycle.
+

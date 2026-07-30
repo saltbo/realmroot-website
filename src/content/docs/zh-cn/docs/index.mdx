@@ -1,0 +1,30 @@
+---
+title: Realmroot 是什么？
+description: 面向单个产品 Realm 的可部署身份与委托授权根。
+---
+
+Realmroot 为产品团队提供自己的身份根：一个用户池、一个 Issuer、一个管理 Console
+与一个托管账户中心。
+
+当多个应用应该共享账户与管理员时，它们可以共享同一个 Realm。这个 Realm
+也为 Agent 提供稳定身份，以及由控制者批准、绑定精确 Scope 的原生或外部 API 访问。
+
+## 包含的能力
+
+- 托管登录、注册、密码恢复与 OAuth 同意
+- 管理凭据、MFA、Passkey、会话与关联账户的账户中心
+- 配置应用、用户、策略、角色、API 资源与品牌的管理 Console
+- 面向产品应用的标准 OIDC 集成
+- 带 OpenAPI 契约的资源化管理 API
+- 持久 Agent 身份与委托 API 访问
+
+## 核心规则
+
+一个 Realmroot 部署就是一个身份 Realm。
+
+产品可以在 Realm 内注册多个 OIDC Application。如果两个产品需要独立的用户、
+管理员、Issuer URL 或安全策略，就部署新的 Realmroot 实例。
+
+从[快速开始](/zh-cn/docs/getting-started/quick-start/)继续，部署 Realm、
+创建首位管理员并连接产品应用。
+

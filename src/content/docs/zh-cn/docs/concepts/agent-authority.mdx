@@ -1,0 +1,28 @@
+---
+title: Agent 权限模型
+description: 持久身份、主机绑定、控制者决策与直接资源访问。
+---
+
+Realmroot 将持久 Agent 身份与当前承载它的主机注册和密钥分开。
+
+## 先建立身份，再授予权限
+
+Enrollment 在控制者批准后，将主机与稳定身份关联起来；它本身不授予 API 权限。
+
+权限从 Agent 针对一个 API Resource 与精确 Scope 集合的请求开始。
+外部资源还会将请求绑定到一个已连接账户。扩大 Scope、切换账户或选择其他资源，
+都需要控制者作出新的决策。
+
+## 直接访问
+
+Realmroot 不是 HTTP 代理。批准后的 Grant 会产生短期、受众受限且 DPoP 绑定的令牌，
+Agent 直接把它提交给受保护 API。
+
+对于 Realmroot 原生资源，Realmroot 签发令牌；对于外部资源，
+Realmroot 与目标 Authorization Server 执行基于标准的 OAuth Exchange。
+
+## 撤销
+
+撤销 Grant、Connection、Credential、Agent 或 Host 会阻止后续令牌签发。
+审计记录会保留 Principal、Controller、Agent、Host、Resource、Scope 与结果，
+但不会存储原始 Credential 或 Access Token。

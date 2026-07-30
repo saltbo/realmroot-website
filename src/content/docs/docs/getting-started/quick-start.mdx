@@ -1,0 +1,41 @@
+---
+title: Quick start
+description: Deploy Realmroot, bootstrap the first administrator, and connect an application.
+---
+
+## 1. Fork the repository
+
+Fork [`saltbo/realmroot`](https://github.com/saltbo/realmroot). Each production
+realm should have its own fork and Cloudflare resource set.
+
+## 2. Install the deployment workflow
+
+Copy `deploy/realmroot-fork.yml` from the repository to
+`.github/workflows/deploy.yml` in your fork. Configure the Cloudflare secrets and
+email sender described in the deployment documentation, then run **Deploy
+Realmroot Fork**.
+
+## 3. Bootstrap the realm
+
+Open the deployed URL and complete first-administrator onboarding. Realmroot
+will then route signed-in administrators to the Console.
+
+## 4. Register an application
+
+Create an application in the Console and add its redirect URI. Product
+applications discover the realm through:
+
+```text
+https://your-realm.example.com/api/auth/.well-known/openid-configuration
+```
+
+Browser and native clients should use authorization code with PKCE.
+Server-side confidential clients authenticate at the token endpoint with their
+registered client credentials.
+
+## 5. Configure the product experience
+
+Choose login methods, configure connectors, set security policy, and customize
+hosted branding. Users can manage their accounts through the hosted account
+center.
+

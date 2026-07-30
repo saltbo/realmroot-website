@@ -1,0 +1,51 @@
+---
+import MarketingLayout from './MarketingLayout.astro';
+import type { Locale } from '../site';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  author: string;
+  locale: Locale;
+  canonicalPath: string;
+}
+
+const { title, description, publishedAt, author, locale, canonicalPath } = Astro.props;
+const isChinese = locale === 'zh-CN';
+---
+
+<MarketingLayout
+  title={`${title} — Realmroot`}
+  description={description}
+  locale={locale}
+  canonicalPath={canonicalPath}
+>
+  <div class="article-shell">
+    <article>
+      <header class="article-header">
+        <p class="eyebrow">{isChinese ? 'Realmroot 博客' : 'Realmroot Journal'}</p>
+        <h1>{title}</h1>
+        <p class="description">{description}</p>
+        <div class="article-meta">
+          <span>{publishedAt.toLocaleDateString(locale, { dateStyle: 'long' })}</span>
+          <span>{author}</span>
+        </div>
+      </header>
+      <div class="article-content">
+        <slot />
+      </div>
+    </article>
+    <aside class="article-aside">
+      <span>{isChinese ? '继续探索' : 'Continue exploring'}</span>
+      <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>
+        ← {isChinese ? '返回全部文章' : 'All writing'}
+      </a>
+      <span>{isChinese ? '产品文档' : 'Product docs'}</span>
+      <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>
+        {isChinese ? '了解 Realmroot' : 'Understand Realmroot'} →
+      </a>
+    </aside>
+  </div>
+</MarketingLayout>
+

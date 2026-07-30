@@ -1,0 +1,36 @@
+---
+title: 快速开始
+description: 部署 Realmroot，创建首位管理员，并连接一个产品应用。
+---
+
+## 1. Fork 仓库
+
+Fork [`saltbo/realmroot`](https://github.com/saltbo/realmroot)。
+每个生产 Realm 都应该拥有自己的 Fork 与 Cloudflare 资源集。
+
+## 2. 安装部署工作流
+
+将仓库中的 `deploy/realmroot-fork.yml` 复制到 Fork 的
+`.github/workflows/deploy.yml`。按照部署文档配置 Cloudflare Secret
+与邮件发件人，然后运行 **Deploy Realmroot Fork**。
+
+## 3. 初始化 Realm
+
+打开部署 URL 并完成首位管理员 Onboarding。之后，已登录管理员会进入 Console。
+
+## 4. 注册应用
+
+在 Console 中创建 Application 并添加 Redirect URI。产品应用通过以下地址发现 Realm：
+
+```text
+https://your-realm.example.com/api/auth/.well-known/openid-configuration
+```
+
+浏览器与原生客户端应使用带 PKCE 的 Authorization Code。
+服务端 Confidential Client 则使用注册的 Client Credential 访问 Token Endpoint。
+
+## 5. 配置产品体验
+
+选择登录方式、配置 Connector、设置安全策略并定制托管页面品牌。
+用户可以在托管账户中心管理自己的身份。
+
