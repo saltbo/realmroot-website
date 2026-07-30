@@ -27,9 +27,9 @@ const canonical = new URL(canonicalPath, Astro.site);
 <html lang={t.lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4f4ee" />
+    <meta name="theme-color" content="#f4f2ea" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={isChinese ? 'en' : 'zh-CN'} href={languageHref} />
     <link rel="alternate" type="application/rss+xml" title="Realmroot Blog" href={isChinese ? '/zh-cn/rss.xml' : '/rss.xml'} />
@@ -57,6 +57,10 @@ const canonical = new URL(canonicalPath, Astro.site);
           <a href={`${t.home}#agents`}>{t.nav.agents}</a>
           <a href={`${t.home}#product`}>{t.nav.product}</a>
           <a href={`${t.home}#architecture`}>{t.nav.architecture}</a>
+          <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
+          <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
+        </nav>
+        <nav class="compact-nav" aria-label="Primary navigation">
           <a href={isChinese ? '/zh-cn/docs/' : '/docs/'}>{t.nav.docs}</a>
           <a href={isChinese ? '/zh-cn/blog/' : '/blog/'}>{t.nav.blog}</a>
         </nav>

@@ -213,7 +213,7 @@ const t = zh
       <div class="host-stack">
         <strong>{t.passport.hosts}</strong>
         {t.passport.hostNames.map((host, index) => (
-          <span><i class={`host-mark mark-${index + 1}`}></i>{host}</span>
+          <span><i class={`host-mark mark-${index + 1}`} aria-hidden="true"></i>{host}</span>
         ))}
       </div>
       <div class="identity-card">
@@ -326,7 +326,7 @@ const t = zh
         </div>
       </div>
       <div class="actor-map">
-        <div class="actor-root"><i class="root-mark"></i><strong>Realmroot</strong><span>{zh ? '信任根' : 'Identity root'}</span></div>
+          <div class="actor-root"><i class="root-mark" aria-hidden="true"></i><strong>Realmroot</strong><span>{zh ? '信任根' : 'Identity root'}</span></div>
         <div class="actor-grid">
           {t.realmActors.map(([actor, body]) => (
             <article>

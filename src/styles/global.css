@@ -31,6 +31,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: clip;
   color: var(--ink);
   background: var(--canvas);
   font-family: var(--sans);
@@ -45,10 +46,30 @@ a {
   text-decoration: none;
 }
 
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
 button,
 a {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 4px;
+}
+
+[id] {
+  scroll-margin-top: 88px;
 }
 
 .skip-link {
@@ -130,6 +151,19 @@ a {
   font-weight: 580;
 }
 
+.compact-nav {
+  display: none;
+  gap: 18px;
+  margin-left: auto;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 620;
+}
+
+.compact-nav a:hover {
+  color: var(--ember);
+}
+
 .desktop-nav a {
   color: #373933;
 }
@@ -166,7 +200,11 @@ a {
   font-size: 14px;
   font-weight: 680;
   line-height: 1;
-  transition: 150ms ease;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
 }
 
 .button:hover {
@@ -209,7 +247,7 @@ a {
 }
 
 .section {
-  padding: 124px 0;
+  padding: 108px 0;
 }
 
 .eyebrow {
@@ -236,12 +274,11 @@ a {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.97fr) minmax(540px, 1.03fr);
-  gap: 64px;
-  min-height: calc(100svh - 72px);
-  padding-top: 74px;
-  padding-bottom: 70px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1.05fr) minmax(520px, 0.95fr);
+  gap: 52px;
+  padding-top: 64px;
+  padding-bottom: 80px;
+  align-items: start;
 }
 
 .hero-copy {
@@ -251,14 +288,18 @@ a {
 .hero h1 {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(62px, 6.2vw, 91px);
+  font-size: clamp(60px, 5.35vw, 77px);
   font-weight: 480;
   letter-spacing: -0.055em;
-  line-height: 0.9;
+  line-height: 0.92;
 }
 
 .hero h1 span {
   display: block;
+}
+
+.hero h1 span:first-child {
+  white-space: nowrap;
 }
 
 .hero-lead {
@@ -640,7 +681,7 @@ a {
 .blog-hero h1 {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(52px, 5.5vw, 78px);
+  font-size: clamp(48px, 4.75vw, 68px);
   font-weight: 470;
   letter-spacing: -0.05em;
   line-height: 0.98;
@@ -712,8 +753,8 @@ a {
 
 .grant-layout {
   display: grid;
-  grid-template-columns: 0.78fr 1.22fr;
-  gap: 90px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 72px;
   align-items: center;
 }
 
@@ -846,8 +887,8 @@ a {
 
 .realm-layout {
   display: grid;
-  grid-template-columns: 0.78fr 1.22fr;
-  gap: 88px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 72px;
   align-items: center;
 }
 
@@ -1016,6 +1057,7 @@ a {
 }
 
 .post-card h3 {
+  min-height: 66px;
   margin: auto 0 17px;
   font-family: var(--serif);
   font-size: 31px;
@@ -1293,7 +1335,7 @@ a {
   .hero {
     grid-template-columns: 1fr;
     gap: 66px;
-    padding-top: 80px;
+    padding-top: 64px;
   }
 
   .hero-copy {
@@ -1301,7 +1343,7 @@ a {
   }
 
   .hero h1 {
-    font-size: clamp(66px, 10vw, 94px);
+    font-size: clamp(64px, 8vw, 82px);
   }
 
   .agent-passport {
@@ -1340,6 +1382,10 @@ a {
 
   .desktop-nav {
     display: none;
+  }
+
+  .compact-nav {
+    display: flex;
   }
 
   .nav-actions .button {
@@ -1458,6 +1504,16 @@ a {
     height: 25px;
   }
 
+  .compact-nav {
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  .nav-actions {
+    gap: 10px;
+    margin-left: 12px;
+  }
+
   .hero {
     gap: 46px;
     padding-top: 48px;
@@ -1465,7 +1521,17 @@ a {
   }
 
   .hero h1 {
-    font-size: clamp(48px, 15.7vw, 67px);
+    font-size: clamp(48px, 14vw, 56px);
+  }
+
+  html[lang='zh-CN'] .hero h1 {
+    font-size: 42px;
+    line-height: 0.98;
+  }
+
+  .hero h1 span,
+  .hero h1 span:first-child {
+    white-space: normal;
   }
 
   .hero-lead {
@@ -1572,7 +1638,7 @@ a {
   .blog-preview-header h2,
   .final-cta h2,
   .blog-hero h1 {
-    font-size: 48px;
+    font-size: 44px;
   }
 
   .distinction-grid article,
@@ -1629,6 +1695,10 @@ a {
     border-bottom: 1px solid var(--line);
   }
 
+  .post-card h3 {
+    min-height: 0;
+  }
+
   .blog-preview-header {
     gap: 26px;
   }
@@ -1641,5 +1711,16 @@ a {
     gap: 14px;
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .button,
+  .post-card h3 {
+    transition: none;
   }
 }
