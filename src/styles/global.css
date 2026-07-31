@@ -420,6 +420,78 @@ button:focus-visible {
   font-size: 13px;
 }
 
+.wallet-header {
+  border-bottom-color: #343830;
+  color: var(--canvas);
+  background: color-mix(in srgb, #151814 95%, transparent);
+}
+
+.wallet-header .brand {
+  color: var(--canvas);
+}
+
+.wallet-header .brand-tile {
+  border-color: #e4e1d7;
+}
+
+.wallet-header .desktop-nav > a,
+.wallet-header .compact-nav > a {
+  color: #c3c6bc;
+}
+
+.wallet-header .desktop-nav > a:hover,
+.wallet-header .compact-nav > a:hover,
+.wallet-header .language-link:hover {
+  color: var(--mint);
+}
+
+.wallet-header .language-link {
+  color: #92968b;
+}
+
+.wallet-header .button-dark {
+  border-color: var(--mint);
+  color: var(--ink);
+  background: var(--mint);
+}
+
+.wallet-header .product-switcher-menu {
+  border-color: #454940;
+  background: #1a1d19;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.28),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.wallet-header .product-switcher-option:hover,
+.wallet-header .product-switcher-option:focus-visible {
+  border-color: #454940;
+  background: #22251f;
+}
+
+.wallet-header .product-switcher-name {
+  color: var(--canvas);
+}
+
+.wallet-header .product-switcher-copy > span:last-child {
+  color: #969a8f;
+}
+
+.wallet-header .product-switcher-mark {
+  border-color: #55594f;
+  color: #a4a89d;
+}
+
+.wallet-header .product-switcher-option.active .product-switcher-mark {
+  border-color: var(--mint);
+  color: var(--mint);
+  background: rgba(130, 220, 192, 0.08);
+}
+
+.wallet-header .product-switcher-arrow {
+  color: #686c62;
+}
+
 .section {
   padding: 108px 0;
 }

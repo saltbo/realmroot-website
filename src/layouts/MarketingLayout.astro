@@ -34,7 +34,7 @@ const canonical = new URL(canonicalPath, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4f2ea" />
+    <meta name="theme-color" content={isWallet ? '#151814' : '#f4f2ea'} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={isChinese ? 'en' : 'zh-CN'} href={languageHref} />
     <link rel="alternate" type="application/rss+xml" title="Realmroot Blog" href={isChinese ? '/zh-cn/rss.xml' : '/rss.xml'} />
@@ -52,7 +52,7 @@ const canonical = new URL(canonicalPath, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header">
+    <header class:list={['site-header', { 'wallet-header': isWallet }]}>
       <div class="nav-shell">
         <a class="brand" href={t.home} aria-label="Realmroot home">
           <span class="brand-tile" aria-hidden="true">R</span>
