@@ -97,95 +97,147 @@ const t = zh
     };
 ---
 
-<section class="wallet-hero section-shell" id="wallet">
-  <div class="wallet-hero-copy">
-    <p class="eyebrow"><span></span>{t.eyebrow}</p>
-    <h1 class="heading-lines">{t.title.map((line) => <span>{line}</span>)}</h1>
-    <p class="wallet-hero-lead"><PhraseText locale={locale} text={t.lead} /></p>
-    <div class="hero-actions">
-      <a class="button button-primary" href={site.wallet}>{t.primary}<span aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href={`${site.wallet}/sandbox`}>{t.secondary}</a>
+<section class="wallet-stage" id="wallet">
+  <div class="section-shell">
+    <div class="wallet-stage-bar">
+      <div><strong>Wallet</strong><span>Agent payment control</span></div>
+      <span><i></i>{zh ? '系统正常' : 'All systems operational'}</span>
     </div>
-    <div class="wallet-trust">
-      {t.trust.map((item) => <span><i></i>{item}</span>)}
-    </div>
-  </div>
 
-  <div class="wallet-preview" aria-label="Realmroot Wallet product preview">
-    <div class="wallet-preview-bar">
-      <span></span><span></span><span></span>
-      <small>wallet.realmroot.dev</small>
+    <div class="wallet-stage-intro">
+      <div>
+        <p class="eyebrow light"><span></span>{t.eyebrow}</p>
+        <h1 class="heading-lines">{t.title.map((line) => <span>{line}</span>)}</h1>
+      </div>
+      <div class="wallet-stage-brief">
+        <p><PhraseText locale={locale} text={t.lead} /></p>
+        <div class="hero-actions">
+          <a class="button button-inverted" href={site.wallet}>{t.primary}<span aria-hidden="true">↗</span></a>
+          <a class="button button-ghost-light" href={`${site.wallet}/sandbox`}>{t.secondary}</a>
+        </div>
+      </div>
     </div>
-    <div class="wallet-preview-balance">
-      <small>{t.preview.balance}</small>
-      <strong>2,480.00 <span>USDC</span></strong>
-      <p><i></i>{t.preview.protected}</p>
-    </div>
-    <div class="wallet-preview-agent">
-      <span class="wallet-agent-mark">A</span>
-      <div><strong>Research Agent</strong><small>{t.preview.policy}</small></div>
-      <span class="wallet-status"><i></i>Active</span>
-    </div>
-    <div class="wallet-preview-limit">
-      <div><span>{t.preview.spent}</span><strong>$23.40</strong></div>
-      <div><span>{t.preview.budget}</span><strong>$100.00</strong></div>
-    </div>
-    <div class="wallet-progress"><span></span></div>
-    <div class="wallet-preview-payment">
-      <span>→</span>
-      <div><strong>api.weather.dev</strong><small>{t.preview.settled}</small></div>
-      <strong>$0.025</strong>
+
+    <div class="wallet-console" aria-label={zh ? 'Wallet 产品控制台预览' : 'Wallet product control console'}>
+      <div class="wallet-console-head">
+        <span><i></i>LIVE / BASE MAINNET</span>
+        <span>wallet.realmroot.dev</span>
+        <span>UTC 14:32:08</span>
+      </div>
+      <div class="wallet-console-grid">
+        <section class="wallet-balance-panel">
+          <small>{zh ? '用户钱包' : 'OWNER WALLET'}</small>
+          <p>{t.preview.balance}</p>
+          <strong>2,480.00</strong>
+          <span>USDC</span>
+          <div class="wallet-ring" aria-label={zh ? '本月预算已使用 23%' : '23% of monthly budget used'}>
+            <i></i><span>23%</span>
+          </div>
+          <dl>
+            <div><dt>{zh ? '本月已用' : 'MONTH SPEND'}</dt><dd>$182.40</dd></div>
+            <div><dt>{zh ? '可用预算' : 'AVAILABLE'}</dt><dd>$612.60</dd></div>
+          </dl>
+        </section>
+
+        <section class="wallet-agent-panel">
+          <header><span>{zh ? 'Agent 策略' : 'AGENT POLICIES'}</span><strong>03 ACTIVE</strong></header>
+          <div class="wallet-agent-row featured">
+            <span>RA</span>
+            <div><strong>Research Agent</strong><small>api.weather.dev · x402</small></div>
+            <div><small>{zh ? '每日限额' : 'DAILY LIMIT'}</small><strong>$100</strong></div>
+          </div>
+          <div class="wallet-agent-row">
+            <span>CA</span>
+            <div><strong>Commerce Agent</strong><small>2 {zh ? '个允许商户' : 'allowed merchants'}</small></div>
+            <div><small>{zh ? '每日限额' : 'DAILY LIMIT'}</small><strong>$250</strong></div>
+          </div>
+          <div class="wallet-agent-row">
+            <span>DA</span>
+            <div><strong>Data Agent</strong><small>{zh ? '仅 Sandbox' : 'Sandbox only'}</small></div>
+            <div><small>{zh ? '每日限额' : 'DAILY LIMIT'}</small><strong>$25</strong></div>
+          </div>
+        </section>
+
+        <section class="wallet-stream-panel">
+          <header><span>{zh ? '支付事件流' : 'PAYMENT STREAM'}</span><strong>LIVE</strong></header>
+          <div><time>14:32:08</time><i class="settled"></i><p><strong>$0.025</strong><span>api.weather.dev</span></p><small>SETTLED</small></div>
+          <div><time>14:31:52</time><i class="authorized"></i><p><strong>$1.20</strong><span>maps.example</span></p><small>AUTHORIZED</small></div>
+          <div><time>14:30:17</time><i class="blocked"></i><p><strong>$84.00</strong><span>unknown origin</span></p><small>BLOCKED</small></div>
+          <div><time>14:28:44</time><i class="settled"></i><p><strong>$0.008</strong><span>data.market.dev</span></p><small>SETTLED</small></div>
+        </section>
+      </div>
+      <div class="wallet-console-foot">
+        {t.trust.map((item) => <span><i></i>{item}</span>)}
+      </div>
     </div>
   </div>
 </section>
 
-<section class="wallet-controls section" id="controls">
-  <div class="section-shell">
-    <div class="wallet-section-header">
-      <div>
-        <p class="eyebrow"><span></span>{t.controlsEyebrow}</p>
-        <h2 class="heading-lines">{t.controlsTitle.map((line) => <span>{line}</span>)}</h2>
-      </div>
+<section class="wallet-policy-section section" id="controls">
+  <div class="section-shell wallet-policy-layout">
+    <div class="wallet-policy-intro">
+      <p class="eyebrow"><span></span>{t.controlsEyebrow}</p>
+      <h2 class="heading-lines">{t.controlsTitle.map((line) => <span>{line}</span>)}</h2>
       <p><PhraseText locale={locale} text={t.controlsBody} /></p>
     </div>
-    <div class="wallet-control-grid">
-      {t.controls.map(([number, title, body]) => (
+    <div class="wallet-policy-list">
+      {t.controls.map(([number, title, body], index) => (
         <article>
           <span>{number}</span>
-          <h3>{title}</h3>
-          <p><PhraseText locale={locale} text={body} /></p>
+          <div>
+            <h3>{title}</h3>
+            <p><PhraseText locale={locale} text={body} /></p>
+          </div>
+          <small>{index === 0 ? 'USDC / TIME' : index === 1 ? 'ORIGIN / TO' : 'PAUSE / FREEZE'}</small>
         </article>
       ))}
     </div>
   </div>
 </section>
 
-<section class="wallet-flow section" id="flow">
+<section class="wallet-protocol" id="flow">
   <div class="section-shell">
-    <p class="eyebrow light"><span></span>{t.flowEyebrow}</p>
-    <h2 class="heading-lines">{t.flowTitle.map((line) => <span>{line}</span>)}</h2>
-    <div class="wallet-flow-grid">
-      {t.flow.map(([title, body], index) => (
-        <article>
-          <span>0{index + 1}</span>
-          <h3>{title}</h3>
-          <p><PhraseText locale={locale} text={body} /></p>
-        </article>
-      ))}
+    <div class="wallet-protocol-head">
+      <div>
+        <p class="eyebrow light"><span></span>{t.flowEyebrow}</p>
+        <h2 class="heading-lines">{t.flowTitle.map((line) => <span>{line}</span>)}</h2>
+      </div>
+      <p>{zh ? '一次支付授权，一条完整证据链。' : 'One payment authorization. One complete evidence trail.'}</p>
+    </div>
+    <div class="wallet-protocol-track">
+      <div class="wallet-protocol-origin">
+        <small>RESOURCE SERVER</small>
+        <strong>HTTP 402</strong>
+        <code>PAYMENT-REQUIRED</code>
+      </div>
+      <div class="wallet-protocol-events">
+        {t.flow.map(([title, body], index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <div><h3>{title}</h3><p><PhraseText locale={locale} text={body} /></p></div>
+          </article>
+        ))}
+      </div>
+      <div class="wallet-protocol-result">
+        <small>SETTLEMENT</small>
+        <strong>200 OK</strong>
+        <code>PAYMENT-RESPONSE</code>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="wallet-security section">
-  <div class="section-shell wallet-security-layout">
-    <div>
+<section class="wallet-boundary section">
+  <div class="section-shell">
+    <div class="wallet-boundary-statement">
       <p class="eyebrow"><span></span>{t.securityEyebrow}</p>
       <h2>{t.securityTitle}</h2>
       <p><PhraseText locale={locale} text={t.securityBody} /></p>
     </div>
-    <dl>
-      {t.securityFacts.map(([term, description]) => (
+    <dl class="wallet-boundary-ledger">
+      {t.securityFacts.map(([term, description], index) => (
         <div>
+          <span>0{index + 1}</span>
           <dt>{term}</dt>
           <dd><PhraseText locale={locale} text={description} /></dd>
         </div>
@@ -194,16 +246,15 @@ const t = zh
   </div>
 </section>
 
-<section class="wallet-final">
-  <div class="section-shell wallet-final-inner">
+<section class="wallet-launch">
+  <div class="section-shell wallet-launch-inner">
     <div>
-      <p class="eyebrow light"><span></span>OIDC · DPoP · x402 · USDC</p>
+      <p>OIDC · DPoP · x402 · USDC</p>
       <h2>{t.finalTitle}</h2>
-      <p><PhraseText locale={locale} text={t.finalBody} /></p>
     </div>
-    <div class="final-actions">
-      <a class="button button-inverted" href={site.wallet}>{t.primary}</a>
-      <a class="button button-ghost-light" href={`${site.wallet}/sandbox`}>{t.secondary}</a>
+    <div>
+      <p><PhraseText locale={locale} text={t.finalBody} /></p>
+      <a class="button button-dark" href={`${site.wallet}/sandbox`}>{t.secondary}<span aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
